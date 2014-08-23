@@ -9,7 +9,7 @@ MessageModel::MessageModel(MessageModel *message, QObject *parent) : QAbstractLi
    setRoleNames(roles);
 }
 
-void addMessage(const Message& message)
+void MessageModel::addMessage(const Message& message)
 {
    beginInsertRows(QModelIndex(), rowCount(), rowCount());
    m_messages << message;
