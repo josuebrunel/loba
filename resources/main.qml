@@ -17,13 +17,6 @@ Rectangle
 
     signal sendMessage(string messageAEnvoyer);
 
-    // Unitary Tests //
-    function randomNumber() 
-    {
-       return (Math.random() * 360);
-    }
-    // End
-
     Image
     {
         id      : wallpaper
@@ -34,7 +27,6 @@ Rectangle
         smooth  : true
     }
 
-    //
     Rectangle
     {
         id:searchBar
@@ -103,7 +95,6 @@ Rectangle
             }
         }
     }
-    //
 
     Component
     {
@@ -113,9 +104,7 @@ Rectangle
         {
             id:delegateItem
 
-            //width     : listViewSPS.width
-            //width     : container.randomNumber()
-            width       : (name.length*8 + 7)>(listViewSPS.width)?listViewSPS.width:(name.length*8 + 7)
+            width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
             height      : 30
             clip        : true
             smooth      : true

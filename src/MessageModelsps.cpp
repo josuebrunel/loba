@@ -51,8 +51,15 @@ void MessageModelSPS::addMessage(const Message& message)
 
 void MessageModelSPS::slotAddMessage(QString message)
 {
+    message = message + getCurrentTime().toString(" -- hh:mm"); 
+
     if (!message.isEmpty()) {
        Message m(message);
        this->addMessage(m);
     }
+}
+
+QTime MessageModelSPS::getCurrentTime() const
+{
+   return QTime::currentTime();
 }

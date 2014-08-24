@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include "Message.h"
+#include <QTime>
 
 class MessageModelSPS : public QAbstractListModel
 {
@@ -20,6 +21,8 @@ public:
     void        addMessage(const Message&);
     int         rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant    data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+    QTime getCurrentTime() const;
 
 public slots:
     void        slotAddMessage(QString);

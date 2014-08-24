@@ -2,8 +2,8 @@
 
 QmlManager::QmlManager()
 {
-    this->height = 600;
-    this->width =  300;
+    //this->height = 600;
+    //this->width =  300;
     this->qmlPath = "../resources/main.qml";
 }
 
@@ -22,8 +22,8 @@ QDeclarativeView* QmlManager::configureQMLInterface(MessageModelSPS *mdsps)
     QObject *item;
     item = view->rootObject();
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    view->setMinimumSize(this->width, this->height);
-    view->setMaximumSize(this->width, this->height);
+    //view->setMinimumSize(this->width, this->height);
+    //view->setMaximumSize(this->width, this->height);
 
     QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  mdsps,  SLOT(slotAddMessage(QString)));
 
