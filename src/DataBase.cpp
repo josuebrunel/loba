@@ -8,7 +8,7 @@ MessageModelSPS* DataBase::LoadDataBaseSPS(MessageModelSPS *modelsps)
 {
     modelsps = new MessageModelSPS();
 
-    modelsps->addMessage(Message("Welcome"));
+    modelsps->addMessage(Message(""));
 
     return modelsps;
 }

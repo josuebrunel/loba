@@ -17,9 +17,15 @@ public:
     MessageModelSPS(QObject *parent = 0);
 
     void        loadDataBase(void);
-    void        addMessage(const Message &);
+    void        addMessage(const Message&);
     int         rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant    data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+public slots:
+    void        slotAddMessage(QString);
+
+protected:
+    QHash<int, QByteArray> roleNames() const;
 
 private:
     QList<Message> m_Messages;

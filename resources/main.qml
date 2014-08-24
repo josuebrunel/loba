@@ -5,23 +5,107 @@ Rectangle
     id: container
 
     height: 600
-    width : 800
+    width : 300
 
 
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
-    property string name                : "Welcome on godbod Chatter 2014 !"
+    property string nameP               : "Hello, welcome to NetCOM¹ 2014"
+    property bool   textTypeSearch      : true
+    property bool   focusSearch         : false
+    property string textInputSearch     : "tap your message..."
+
+    signal sendMessage(string messageAEnvoyer);
+
+    // Unitary Tests //
+    function randomNumber() 
+    {
+       return (Math.random() * 360);
+    }
+    // End
 
     Image
     {
         id      : wallpaper
         height  : parent.height
-        width   :  parent.width
-        fillMode: Image.Stretch
-        source  : "wallpaper.png"
+        width   : parent.width
+        fillMode: Image.PreserveAspectCrop
+        source  : "wallpaper.jpg"
         smooth  : true
-        
     }
+
+    //
+    Rectangle
+    {
+        id:searchBar
+
+        anchors
+        {
+            bottom      : parent.bottom
+            bottomMargin: 10
+            left        : parent.left
+            leftMargin  : 20
+            right       : parent.right
+            rightMargin : 20
+        }
+
+        height      : 40
+        width       : parent.width
+        radius      : 2
+        color       : "white"
+        border.color: "white"
+        border.width: 1
+        smooth      : true
+
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                textInputSearch = '';
+                focusSearch = true;
+            }
+        }
+
+        TextInput
+        {
+            id: textInput
+
+            anchors
+            {
+                left          : parent.left;
+                leftMargin    : 8;
+                right         : searchBar.right
+                rightMargin   : 8;
+                verticalCenter: parent.verticalCenter
+            }
+
+            focus         : focusSearch
+            font.pixelSize: 11
+            color         : "black"
+            text          : textInputSearch
+            font.italic   : textTypeSearch
+
+            onAccepted:
+            {
+                console.log("\n" + textInput.text)
+                sendMessage(textInput.text);
+            }
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    textInputSearch= ''
+                    focusSearch    = true
+                    textTypeSearch = false
+                    nameP          = name
+                }
+            }
+        }
+    }
+    //
 
     Component
     {
@@ -31,11 +115,13 @@ Rectangle
         {
             id:delegateItem
 
-            width       : listViewSPS.width
+            //width     : listViewSPS.width
+            //width     : container.randomNumber()
+            width       : nameP.length*7 
             height      : 30
             clip        : true
             smooth      : true
-            color       : "#343434"
+            color       : "#2672EC"
             border.color: "black"
             border.width: 0
             radius      : 5
@@ -50,8 +136,8 @@ Rectangle
                     verticalCenter: parent.verticalCenter
                 }
 
-                text          : name
-                font.family   : "Monospace"
+                text          : nameP
+                font.family   : "Garamont"
                 font.pixelSize: 13
                 color         : "white"
                 smooth        : true
@@ -81,16 +167,16 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     to         : 70;
-                     duration   : 700;
+                     to         : 30;
+                     duration   : 500;
                      easing.type: Easing.InOutBack
                  }
                  ColorAnimation
                  {
                      target   : delegateItem
                      property : "color"
-                     to       :"brown"
-                     duration : 700
+                     to       :"#2672EC"
+                     duration : 500
                  }
                  NumberAnimation
                  {
@@ -98,7 +184,7 @@ Rectangle
                      property   : "scale";
                      from       : 0
                      to         : 1
-                     duration   : 700
+                     duration   : 500
                      easing.type: Easing.InOutBack
                  }
             }
@@ -158,12 +244,13 @@ Rectangle
     ListView
     {
         id         : listViewSPS
-        width      : parent.width/2
-        height     : parent.height
+        width      : parent.width
+        height     : parent.height - parent.height/5
         clip       : true
         opacity    : 1
         cacheBuffer: 10
-        visible    :varVisibleSPS
+        visible    : varVisibleSPS
+        spacing    : 10
 
         Behavior on width
         {
@@ -177,13 +264,15 @@ Rectangle
 
         anchors
         {
-            left      : parent.left
-            leftMargin: 20
-            top       : parent.top
-            topMargin : 50
+            left        : parent.left
+            leftMargin  : 20
+            top         : parent.top
+            topMargin   : 50
+            right       : parent.right
+            rightMargin : 20
         }
 
-        model   : myModelsps
+        model: myModelsps
         delegate: listDelegateSPS
     }
 }
