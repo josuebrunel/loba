@@ -113,9 +113,9 @@ Rectangle
         {
             id:delegateItem
 
-            width       : listViewSPS.width
+            //width     : listViewSPS.width
             //width     : container.randomNumber()
-            //width     : nameP.length*10 
+            width       : (name.length*8 + 7)>(listViewSPS.width)?listViewSPS.width:(name.length*8 + 7)
             height      : 30
             clip        : true
             smooth      : true

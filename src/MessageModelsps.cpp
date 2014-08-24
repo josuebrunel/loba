@@ -51,6 +51,8 @@ void MessageModelSPS::addMessage(const Message& message)
 
 void MessageModelSPS::slotAddMessage(QString message)
 {
-    Message m(message);
-    this->addMessage(m);
+    if (!message.isEmpty()) {
+       Message m(message);
+       this->addMessage(m);
+    }
 }
