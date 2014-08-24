@@ -62,8 +62,8 @@ Rectangle
             anchors.fill: parent
             onClicked:
             {
-                textInputSearch = '';
-                focusSearch = true;
+                textInputSearch = ''
+                focusSearch     = true
             }
         }
 
@@ -73,10 +73,10 @@ Rectangle
 
             anchors
             {
-                left          : parent.left;
-                leftMargin    : 8;
+                left          : parent.left
+                leftMargin    : 8
                 right         : searchBar.right
-                rightMargin   : 8;
+                rightMargin   : 8
                 verticalCenter: parent.verticalCenter
             }
 
@@ -84,12 +84,11 @@ Rectangle
             font.pixelSize: 11
             color         : "black"
             text          : textInputSearch
-            font.italic   : textTypeSearch
 
             onAccepted:
             {
-                console.log("\n" + textInput.text)
-                sendMessage(textInput.text);
+                sendMessage(textInput.text)
+                textInput.text  = '' 
             }
 
             MouseArea
@@ -97,10 +96,9 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    textInputSearch= ''
+                    textInputSearch= ""
                     focusSearch    = true
                     textTypeSearch = false
-                    nameP          = name
                 }
             }
         }
@@ -115,9 +113,9 @@ Rectangle
         {
             id:delegateItem
 
-            //width     : listViewSPS.width
+            width       : listViewSPS.width
             //width     : container.randomNumber()
-            width       : nameP.length*7 
+            //width     : nameP.length*10 
             height      : 30
             clip        : true
             smooth      : true
@@ -125,6 +123,17 @@ Rectangle
             border.color: "black"
             border.width: 0
             radius      : 5
+
+            y: listViewSPS.currentItem.y
+
+            Behavior on y 
+            {
+               SpringAnimation 
+               {
+                  spring : 3
+                  damping: 0.2
+               }
+            }
 
             Text
             {
@@ -136,7 +145,7 @@ Rectangle
                     verticalCenter: parent.verticalCenter
                 }
 
-                text          : nameP
+                text          : name 
                 font.family   : "Garamont"
                 font.pixelSize: 13
                 color         : "white"
@@ -147,7 +156,7 @@ Rectangle
             {
                 id           : rec
                 color        : "#c0c0c0"
-                height       : delegateItem.height+1
+                height       : delegateItem.height
                 width        : delegateItem.width
                 border.color : "black"
                 border.width : 0
@@ -272,7 +281,11 @@ Rectangle
             rightMargin : 20
         }
 
-        model: myModelsps
+        model   : myModelsps
         delegate: listDelegateSPS
+
+        highlight  : highlight 
+        highlightFollowsCurrentItem: false
+        focus      : true
     }
 }
