@@ -1,13 +1,17 @@
-
 #include <QApplication>
-#include "../includes/Launcher.h"
+#include "MessageModelsps.h"
+#include "QmlManager.h"
+#include "DataBase.h"
 
-int main(int argc, char **argv)
-{
-   QApplication app(argc, argv);
+int main (int argc, char **argv)
+{   
+    QApplication app(argc, argv);
 
-   Launcher *launcher = new Launcher();
-   launcher->linkQttoQml();
+    DataBase *dbLoad = new DataBase();
+    MessageModelSPS *modelsps;
+    modelsps   = dbLoad->LoadDataBaseSPS(modelsps);
+    QmlManager *qmlMan = new QmlManager();
+    qmlMan->showQMLInterface(modelsps);
 
-   return app.exec();
+    return app.exec();
 }
