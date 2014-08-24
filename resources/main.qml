@@ -14,6 +14,7 @@ Rectangle
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
+    property int    index               : 1
 
     signal sendMessage(string messageAEnvoyer);
 
@@ -80,7 +81,7 @@ Rectangle
             onAccepted:
             {
                 sendMessage(textInput.text)
-                textInput.text  = '' 
+                textInput.text  = ''
             }
 
             MouseArea
@@ -105,7 +106,7 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            height      : 30
+            height      : (name.length*8)>(listViewSPS.width)?60:30 
             clip        : true
             smooth      : true
             color       : "#2672EC"
@@ -165,7 +166,8 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     to         : 30;
+                     //to       : 30
+                     to         : (name.length*8)>(listViewSPS.width)?60:30 
                      duration   : 500;
                      easing.type: Easing.InOutBack
                  }
@@ -249,6 +251,7 @@ Rectangle
         cacheBuffer: 10
         visible    : varVisibleSPS
         spacing    : 10
+        focus      : true
 
         Behavior on width
         {
@@ -272,9 +275,5 @@ Rectangle
 
         model   : myModelsps
         delegate: listDelegateSPS
-
-        highlight  : highlight 
-        highlightFollowsCurrentItem: false
-        focus      : true
     }
 }
