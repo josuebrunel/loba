@@ -2,7 +2,7 @@
 
 QmlManager::QmlManager()
 {
-    this->height  = 600;
+    this->height  = 550;
     this->width   = 300;
     this->qmlPath = "../resources/main.qml";
 }

@@ -52,7 +52,7 @@ void MessageModelSPS::addMessage(const Message& message)
 void MessageModelSPS::slotAddMessage(QString message)
 {
     if (!message.isEmpty()) {
-       message = message + getCurrentTime().toString(" -- hh:mm"); 
+       message = message + getCurrentTime().toString(" ~~ hh:mm"); 
        Message m(message);
        this->addMessage(m);
     }

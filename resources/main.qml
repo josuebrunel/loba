@@ -10,11 +10,14 @@ Rectangle
 
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
-    property string nameP               : "Hello, welcome to NetCOM¹ 2014"
+    property string nameP               : ""
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
+    
+    property string bluee               : "#2672EC"
+    property string green               : "#267234"
 
     signal sendMessage(string messageAEnvoyer)
 
@@ -106,11 +109,10 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            // height   : (name.length*8)>(listViewSPS.width)?60:30 
             height      : nom.height * 1.5 + 20
             clip        : true
             smooth      : true
-            color       : "#2672EC"
+            color       : green 
             border.color: "black"
             border.width: 0
             radius      : 5
@@ -168,7 +170,7 @@ Rectangle
                  {
                      target   : delegateItem
                      property : "color"
-                     to       :"#2672EC"
+                     to       : green
                      duration : 500
                  }
                  NumberAnimation
