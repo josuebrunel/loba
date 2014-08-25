@@ -1,7 +1,8 @@
 #--------------------------------------
-# 
-#
-#
+# author : godbod  
+# file   : CMakeList.txt
+# date   : 2014-08-25
+# brief  : top level CMakeList.txt
 #--------------------------------------
 
 cmake_minimum_required(VERSION 2.8.11)
