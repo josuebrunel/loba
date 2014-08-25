@@ -16,7 +16,7 @@ Rectangle
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
 
-    signal sendMessage(string messageAEnvoyer);
+    signal sendMessage(string messageAEnvoyer)
 
     Image
     {
@@ -106,24 +106,14 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            height      : (name.length*8)>(listViewSPS.width)?60:30 
+            // height   : (name.length*8)>(listViewSPS.width)?60:30 
+            height      : nom.height * 1.5 + 20
             clip        : true
             smooth      : true
             color       : "#2672EC"
             border.color: "black"
             border.width: 0
             radius      : 5
-
-            y: listViewSPS.currentItem.y
-
-            Behavior on y 
-            {
-               SpringAnimation 
-               {
-                  spring : 3
-                  damping: 0.2
-               }
-            }
 
             Text
             {
@@ -140,6 +130,9 @@ Rectangle
                 font.pixelSize: 13
                 color         : "white"
                 smooth        : true
+                width         : parent.width
+                wrapMode      : Text.WordWrap
+                clip          : true
             }
 
             Rectangle
