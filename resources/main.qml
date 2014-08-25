@@ -20,6 +20,11 @@ Rectangle
     property string green               : "#267234"
 
     signal sendMessage(string messageAEnvoyer)
+  
+    function positionViewAtEnd()
+    {
+       listViewSPS.positionViewAtEnd()
+    }
 
     Image
     {
@@ -77,14 +82,17 @@ Rectangle
             }
 
             focus         : focusSearch
-            font.pixelSize: 11
-            color         : "black"
+            font.family   : "Helvetica"
+            font.pointSize: 11
+            color         : "#0F0F0F"
             text          : textInputSearch
+            smooth        : true
 
             onAccepted:
             {
                 sendMessage(textInput.text)
                 textInput.text  = ''
+                positionViewAtEnd()
             }
 
             MouseArea
@@ -128,8 +136,8 @@ Rectangle
                 }
 
                 text          : name 
-                font.family   : "Garamont"
-                font.pixelSize: 13
+                font.family   : "Helvetica"
+                font.pointSize: 11
                 color         : "white"
                 smooth        : true
                 width         : parent.width
@@ -161,7 +169,6 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     //to       : 30
                      to         : (name.length*8)>(listViewSPS.width)?60:30 
                      duration   : 500;
                      easing.type: Easing.InOutBack
@@ -213,7 +220,7 @@ Rectangle
                     NumberAnimation
                     {
                         property    : "width";
-                        duration    : 1000
+                        duration    : 700
                          easing.type: Easing.InOutQuart
                     }
                 }
