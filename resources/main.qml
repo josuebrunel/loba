@@ -250,7 +250,7 @@ Rectangle
         height     : parent.height - parent.height/5
         clip       : true
         opacity    : 1
-        cacheBuffer: 10
+        cacheBuffer: 10000
         visible    : varVisibleSPS
         spacing    : 5 
         focus      : true
