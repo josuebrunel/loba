@@ -17,6 +17,7 @@ Rectangle
     property int    index               : 1
 
     property alias count                : listViewSPS.count
+
     
     property string bluee               : "#2672EC"
     property string green               : "#267234"
@@ -241,6 +242,7 @@ Rectangle
             }
         }
     }
+
     ListView
     {
         id         : listViewSPS
@@ -250,7 +252,7 @@ Rectangle
         opacity    : 1
         cacheBuffer: 10
         visible    : varVisibleSPS
-        spacing    : 10
+        spacing    : 5 
         focus      : true
 
         Behavior on width
@@ -273,7 +275,10 @@ Rectangle
             rightMargin : 20
         }
 
-        onContentHeightChanged: { listViewSPS.positionViewAtEnd(); listViewSPS.positionViewAtEnd() }
+        onContentHeightChanged: 
+        { 
+           listViewSPS.positionViewAtEnd();
+        }
 
         model   : myModelsps
         delegate: listDelegateSPS
