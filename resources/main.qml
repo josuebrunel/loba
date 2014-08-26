@@ -15,17 +15,14 @@ Rectangle
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
+
+    property alias count                : listViewSPS.count
     
     property string bluee               : "#2672EC"
     property string green               : "#267234"
 
     signal sendMessage(string messageAEnvoyer)
   
-    function positionViewAtEnd()
-    {
-       listViewSPS.positionViewAtEnd()
-    }
-
     Image
     {
         id      : wallpaper
@@ -35,6 +32,15 @@ Rectangle
         source  : "wallpaper.jpg"
         smooth  : true
     }
+
+    Timer 
+    {
+       id         : positioner
+       interval   : 100
+       onTriggered: listViewSPS.positionViewAtEnd()
+    }
+
+    onCountChanged: if (!positioner.running) positioner.start()
 
     Rectangle
     {
@@ -130,9 +136,11 @@ Rectangle
                 id:nom
                 anchors
                 {
-                    left:parent.left
-                    leftMargin: 7
+                    left          : parent.left
+                    leftMargin    : 7
                     verticalCenter: parent.verticalCenter
+                    topMargin     : 7
+                    bottomMargin  : 7
                 }
 
                 text          : name 
@@ -169,7 +177,8 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     to         : (name.length*8)>(listViewSPS.width)?60:30 
+                     //to         : (name.length*8)>(listViewSPS.width)?60:30 
+                     to         : nom.height * 1.5 + 20
                      duration   : 500;
                      easing.type: Easing.InOutBack
                  }
@@ -270,7 +279,7 @@ Rectangle
             left        : parent.left
             leftMargin  : 20
             top         : parent.top
-            topMargin   : 50
+            topMargin   : 50 
             right       : parent.right
             rightMargin : 20
         }
