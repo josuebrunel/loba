@@ -16,11 +16,12 @@ Rectangle
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
 
-    property alias count                : listViewSPS.count
+    property alias  count                : listViewSPS.count
 
     
     property string bluee               : "#2672EC"
     property string green               : "#267234"
+    property int    cacheBuff           : 65536
 
     signal sendMessage(string messageAEnvoyer)
   
@@ -114,7 +115,7 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            height      : nom.height * 1.5 + 20
+            height      : nom.height*1.5 + 20
             clip        : true
             smooth      : true
             color       : green 
@@ -125,13 +126,15 @@ Rectangle
             Text
             {
                 id:nom
+
                 anchors
                 {
-                    left          : parent.left
-                    leftMargin    : 7
-                    verticalCenter: parent.verticalCenter
-                    topMargin     : 7
-                    bottomMargin  : 7
+                   left          : delegateItem.left
+                   leftMargin    : 10
+                   verticalCenter: delegateItem.verticalCenter
+                   topMargin     : 7
+                   bottomMargin  : 7
+                   rightMargin   : 7
                 }
 
                 text          : name 
@@ -142,18 +145,6 @@ Rectangle
                 width         : parent.width
                 wrapMode      : Text.WordWrap
                 clip          : true
-            }
-
-            Rectangle
-            {
-                id           : rec
-                color        : "#c0c0c0"
-                height       : delegateItem.height
-                width        : delegateItem.width
-                border.color : "black"
-                border.width : 0
-                opacity      : 0.2
-                radius       : 5
             }
 
             ListView.onAdd: ParallelAnimation
@@ -250,7 +241,7 @@ Rectangle
         height     : parent.height - parent.height/5
         clip       : true
         opacity    : 1
-        cacheBuffer: 10000
+        cacheBuffer: cacheBuff
         visible    : varVisibleSPS
         spacing    : 5 
         focus      : true
