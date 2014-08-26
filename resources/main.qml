@@ -33,15 +33,6 @@ Rectangle
         smooth  : true
     }
 
-    Timer 
-    {
-       id         : positioner
-       interval   : 100
-       onTriggered: listViewSPS.positionViewAtEnd()
-    }
-
-    onCountChanged: if (!positioner.running) positioner.start()
-
     Rectangle
     {
         id:searchBar
@@ -98,7 +89,6 @@ Rectangle
             {
                 sendMessage(textInput.text)
                 textInput.text  = ''
-                positionViewAtEnd()
             }
 
             MouseArea
@@ -177,7 +167,6 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     //to         : (name.length*8)>(listViewSPS.width)?60:30 
                      to         : nom.height * 1.5 + 20
                      duration   : 500;
                      easing.type: Easing.InOutBack
@@ -283,6 +272,8 @@ Rectangle
             right       : parent.right
             rightMargin : 20
         }
+
+        onContentHeightChanged: { listViewSPS.positionViewAtEnd(); listViewSPS.positionViewAtEnd() }
 
         model   : myModelsps
         delegate: listDelegateSPS
