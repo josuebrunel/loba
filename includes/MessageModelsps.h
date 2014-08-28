@@ -4,10 +4,22 @@
 #include <QAbstractListModel>
 #include "Message.h"
 #include <QTime>
+#include <QtNetwork/QTcpSocket>
+#include <QObject>
 
 class MessageModelSPS : public QAbstractListModel
 {
     Q_OBJECT
+
+public:
+    void connectToServer();
+   
+private:
+    QTcpSocket * socket;
+ 
+private slots:
+    void readData();
+    void disconnectFromServer();
 
 public:
     enum MessageRoles
@@ -16,6 +28,7 @@ public:
     };
 
     MessageModelSPS(QObject *parent = 0);
+    static MessageModelSPS *getInstance();
 
     void        loadDataBase(void);
     void        addMessage(const Message&);
@@ -32,6 +45,7 @@ protected:
 
 private:
     QList<Message> m_Messages;
+    static MessageModelSPS *m_pInstance;
 };
 
 #endif // MESSAGEMODELSPS_H
