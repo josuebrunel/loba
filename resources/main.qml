@@ -83,7 +83,7 @@ Rectangle
 
             focus         : focusSearch
             font.family   : "Helvetica"
-            font.pointSize: 9
+            font.pointSize: 11
             color         : "#0F0F0F"
             text          : textInputSearch
             smooth        : true
@@ -116,7 +116,7 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            height      : nom.height*1.5 + 20
+            height      : nom.height * 1.5 + 20
             clip        : true
             smooth      : true
             color       : green
@@ -140,12 +140,13 @@ Rectangle
 
                 text          : name 
                 font.family   : "Helvetica"
-                font.pointSize: 9
+                font.pointSize: 11
                 color         : "white"
                 smooth        : true
                 width         : parent.width
                 wrapMode      : Text.WordWrap
                 clip          : true
+                textFormat    : Text.RichText
             }
 
             ListView.onAdd: ParallelAnimation
