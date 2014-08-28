@@ -16,11 +16,12 @@ Rectangle
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
 
-    property alias  count                : listViewSPS.count
+    property alias  count               : listViewSPS.count
 
     
     property string bluee               : "#2672EC"
     property string green               : "#267234"
+
     property int    cacheBuff           : 65536
 
     signal sendMessage(string messageAEnvoyer)
@@ -82,7 +83,7 @@ Rectangle
 
             focus         : focusSearch
             font.family   : "Helvetica"
-            font.pointSize: 11
+            font.pointSize: 9
             color         : "#0F0F0F"
             text          : textInputSearch
             smooth        : true
@@ -118,7 +119,7 @@ Rectangle
             height      : nom.height*1.5 + 20
             clip        : true
             smooth      : true
-            color       : green 
+            color       : green
             border.color: "black"
             border.width: 0
             radius      : 5
@@ -139,7 +140,7 @@ Rectangle
 
                 text          : name 
                 font.family   : "Helvetica"
-                font.pointSize: 11
+                font.pointSize: 9
                 color         : "white"
                 smooth        : true
                 width         : parent.width
