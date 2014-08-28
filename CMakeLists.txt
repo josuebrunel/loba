@@ -32,4 +32,4 @@ include_directories("${NetCom_SOURCE_DIR}/includes/")
 add_executable(NetCom ${SOURCES_FILE} ${HEADERS_FILE} ${SAMPLE_MOC_SRCS} ${SAMPLE_RC_SRCS})
 target_link_libraries(NetCom Qt5::Widgets)
 
-qt5_use_modules(NetCom Widgets Declarative)
+qt5_use_modules(NetCom Network Widgets Declarative)
