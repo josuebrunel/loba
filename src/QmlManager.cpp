@@ -27,6 +27,7 @@ QDeclarativeView* QmlManager::configureQMLInterface(MessageModelSPS *mdsps)
 
     QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  mdsps,  SLOT(slotAddMessage(QString)));
 
+
     return view;
 }
 
