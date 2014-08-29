@@ -116,7 +116,8 @@ Rectangle
             id:delegateItem
 
             width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            height      : nom.height * 1.5 + 20
+            //height      : nom.height * 1.5 + 20
+            height      : nom.height + 14 
             clip        : true
             smooth      : true
             color       : green
@@ -133,10 +134,10 @@ Rectangle
                    left          : delegateItem.left
                    leftMargin    : 10
                    verticalCenter: delegateItem.verticalCenter
-                   topMargin     : 7
-                   bottomMargin  : 7
                    right         : delegateItem.right
                    rightMargin   : 5
+                   topMargin     : 0
+                   bottomMargin  : 0
                 }
 
                 text          : name 
@@ -162,7 +163,8 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     to         : nom.height * 1.5 + 20
+                     //to         : nom.height * 1.5 + 20
+                     to      : nom.height + 14 
                      duration   : 500;
                      easing.type: Easing.InOutBack
                  }
