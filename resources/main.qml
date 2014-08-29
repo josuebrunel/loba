@@ -1,8 +1,15 @@
+/********************************************************
+** 
+** Copyright (C) 2014 godbod and/or its subsidiary (-ies)
+** Contact : gkounkou@gmail.com
+**
+*********************************************************/
+
 import QtQuick 1.1
 
 Rectangle
 {
-    id: container
+    id    : chatScreen
 
     height: 600
     width : 300
