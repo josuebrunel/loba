@@ -68,9 +68,9 @@ void MessageModelSPS::addMessage(const Message& message)
 
 void MessageModelSPS::slotAddMessage(QString message)
 {
-    char *str1       = "PRIVMSG #ubuntu :";
+    char *str1       = (char *)"PRIVMSG #ubuntu :";
     const char *str2 = message.toStdString().c_str();
-    char *str3       = " \r\n";
+    char *str3       = (char *)" \r\n";
     char * str4      = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
     strcpy(str4, str1);
     strcat(str4, str2);

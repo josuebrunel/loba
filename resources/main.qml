@@ -135,7 +135,8 @@ Rectangle
                    verticalCenter: delegateItem.verticalCenter
                    topMargin     : 7
                    bottomMargin  : 7
-                   rightMargin   : 7
+                   right         : delegateItem.right
+                   rightMargin   : 5
                 }
 
                 text          : name 
