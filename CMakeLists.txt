@@ -30,6 +30,6 @@ include_directories("${loba_SOURCE_DIR}/includes/")
 
 # build
 add_executable(loba ${SOURCES_FILE} ${HEADERS_FILE} ${SAMPLE_MOC_SRCS} ${SAMPLE_RC_SRCS})
-target_link_libraries(loba Qt5::Widgets)
+target_link_libraries(loba)
 
 qt5_use_modules(loba Network Widgets Declarative)
