@@ -68,7 +68,7 @@ void MessageModelSPS::addMessage(const Message& message)
 
 void MessageModelSPS::slotAddMessage(QString message)
 {
-    char *str1       = (char *)"PRIVMSG #ubuntu :";
+    char *str1       = (char *)"PRIVMSG #qt-quick :";
     const char *str2 = message.toStdString().c_str();
     char *str3       = (char *)" \r\n";
     char *str4       = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
@@ -76,10 +76,7 @@ void MessageModelSPS::slotAddMessage(QString message)
     strcat(str4, str2);
     strcat(str4, str3); 
 
-    // cout << str4 << endl;
-
     socket->write(str4);
-    // socket->write("PRIVMSG #ubuntu :hello world \r\n");
 
     if (!message.isEmpty()) {
        message = message + getCurrentTime().toString(" ~ hh:mm"); 
@@ -95,11 +92,11 @@ QTime MessageModelSPS::getCurrentTime() const
  
 void MessageModelSPS::connectToServer() 
 {
-    socket->connectToHost(QString("irc.ubuntu.com"), 6667);
+    socket->connectToHost(QString("irc.freenode.net"), 6667);
     // USER, NICK and JOIN commands
     socket->write("NICK godbod \r\n");
     socket->write("USER guest tolmoon tolsun :Ronnie Reagan\r\n");
-    socket->write("JOIN #ubuntu\r\n");
+    socket->write("JOIN #qt-quick\r\n");
 }
  
 void MessageModelSPS::readData() 
@@ -110,15 +107,15 @@ void MessageModelSPS::readData()
        readLine = readLine + getCurrentTime().toString(" ~ hh:mm");
        Message m(readLine);
        this->addMessage(m);
-       // std::cout << readLine.toStdString() << std::endl;
+       //std::cout << readLine.toStdString() << std::endl;
     }
 
     if(socket->canReadLine()) readData();
 }
  
-void MessageModelSPS::disconnectFromServer() {
-    // Disconnect from IRC server
-    socket->write("QUIT Good bye \r\n"); // Good bye is optional message
+void MessageModelSPS::disconnectFromServer() 
+{
+    socket->write("QUIT Good bye \r\n");
     socket->flush();
-    socket->disconnect(); // Now we can try it :-)
+    socket->disconnect();
 }

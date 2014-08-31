@@ -5,6 +5,7 @@ QmlManager::QmlManager()
     this->height  = 550;
     this->width   = 300;
     this->qmlPath = "../resources/main.qml";
+    //this->qmlPath = "../resources/login.qml";
 }
 
 void QmlManager::showQMLInterface(MessageModelSPS *modelsps)
@@ -26,7 +27,6 @@ QDeclarativeView* QmlManager::configureQMLInterface(MessageModelSPS *mdsps)
     view->setMaximumSize(this->width + 200, this->height - 200);
 
     QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  mdsps,  SLOT(slotAddMessage(QString)));
-
 
     return view;
 }

@@ -8,7 +8,7 @@ MessageModelSPS* DataBase::LoadDataBaseSPS(MessageModelSPS *modelsps)
 {
     modelsps = new MessageModelSPS();
 
-    modelsps->addMessage(Message("Welcome on NetCom 2014"));
+    modelsps->addMessage(Message("Welcome on loba"));
 
     return modelsps;
 }

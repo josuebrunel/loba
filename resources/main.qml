@@ -23,10 +23,11 @@ Rectangle
     property string textInputSearch     : "tap your message..."
     property int    index               : 1
 
+
     property alias  count               : listViewSPS.count
 
     
-    property string bluee               : "#2672EC"
+    property string blue                : "#2672EC"
     property string green               : "#267234"
 
     property int    cacheBuff           : 65536
@@ -127,7 +128,7 @@ Rectangle
             height      : nom.height + 14 
             clip        : true
             smooth      : true
-            color       : green
+            color       : green 
             border.color: "black"
             border.width: 0
             radius      : 5
@@ -170,8 +171,7 @@ Rectangle
                  {
                      target     : delegateItem;
                      property   : "height";
-                     //to         : nom.height * 1.5 + 20
-                     to      : nom.height + 14 
+                     to         : nom.height + 14 
                      duration   : 500;
                      easing.type: Easing.InOutBack
                  }
