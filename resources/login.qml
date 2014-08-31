@@ -14,6 +14,9 @@ Rectangle
    height: 600
    width : 300
 
+   property bool userFocus  : false 
+   property bool loginFocus : false
+
    Loader
    {
       id           : loader
@@ -58,11 +61,21 @@ Rectangle
             height       : 20
             radius       : 2
 
+            MouseArea
+            {
+               anchors.fill: parent
+               onClicked:
+               {
+                  userFocus  = true 
+                  loginFocus = false
+               }
+            }
             TextInput 
             {
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
-               focus   : true
+               focus : userFocus
+
             }
          }
       }
@@ -91,11 +104,22 @@ Rectangle
             height       : 20
             radius       : 2
 
+            MouseArea
+            {
+               anchors.fill: parent
+               onClicked:
+               {
+                  userFocus  = false 
+                  loginFocus = true
+               }
+            }
             TextInput 
             {
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
                echoMode: TextInput.Password 
+               focus   : loginFocus
+
             }
          }
       }
