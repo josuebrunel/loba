@@ -1,3 +1,10 @@
+/**
+ * author : godbod
+ * file   : Message.h
+ * date   : 2014-08-25
+ * brief  : the message header file
+ */
+
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
