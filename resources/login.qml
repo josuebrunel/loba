@@ -177,6 +177,7 @@ Rectangle
       State
       {
          name : "main"
+
          PropertyChanges
          {
             target : loader
