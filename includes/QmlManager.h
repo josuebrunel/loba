@@ -1,3 +1,10 @@
+/**
+ * author : godbod
+ * file   : MessageModel.h
+ * date   : 2014-08-25
+ * brief  : the messagemodel header file
+ */
+
 #ifndef QMLMANAGER_H
 #define QMLMANAGER_H
 
