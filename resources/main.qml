@@ -41,7 +41,7 @@ Rectangle
         id      : wallpaper
         height  : parent.height
         width   : parent.width
-        fillMode: Image.PreserveAspectCrop
+        fillMode: Image.PreserveAspectFit
         source  : "wallpaper.jpg"
         smooth  : true
     }
