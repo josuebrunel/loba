@@ -29,6 +29,8 @@ Rectangle
     
     property string blue                : "#2672EC"
     property string green               : "#267234"
+    property string red                 : "#660000"
+    
 
     property int    cacheBuff           : 65536
 

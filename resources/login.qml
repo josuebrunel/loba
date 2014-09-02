@@ -181,7 +181,7 @@ Rectangle
          PropertyChanges
          {
             target : loader
-            source : "main.qml" 
+            source : "test.qml" 
          }
       }
    ]
