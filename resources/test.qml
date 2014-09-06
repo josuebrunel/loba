@@ -1,7 +1,8 @@
-import QtQuick 1.0
+import QtQuick 1.1
 
  Item {
      width: 200; height: 250
+     visible:true
 
      ListModel {
          id: myModel
