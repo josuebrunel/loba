@@ -15,13 +15,15 @@ Rectangle
 
    property bool userFocus  : false 
    property bool loginFocus : false
+   property bool disp       : true
+   property bool ndisp      : false
 
-   Loader
+   signal sendLogin(string login, string password)
+
+   function close()
    {
-      id           : loader
-      anchors.fill : parent
-      visible      : source != ""
-   }   
+      Qt.quit()
+   }
 
    Image
    {
@@ -37,11 +39,11 @@ Rectangle
    {
       anchors.centerIn: parent
       spacing         : 16
-      visible         : !loader.visible 
-       
+
       Column
       {
          spacing: 4
+
          Text
          {
             text          : "Username" 
@@ -71,10 +73,10 @@ Rectangle
             }
             TextInput 
             {
+               id : login
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
                focus : userFocus
-
             }
          }
       }
@@ -114,11 +116,11 @@ Rectangle
             }
             TextInput 
             {
+               id : password
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
                echoMode: TextInput.Password 
                focus   : loginFocus
-
             }
          }
       }
@@ -133,28 +135,36 @@ Rectangle
             height: 20
             radius: 3
 
-            
-
             Text
             {
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
                text   : "Login";
             }
-            MouseArea
+            
+            //-----------------------------
+            MouseArea 
             {
-                anchors.fill: parent
-                onClicked:
-                {
-                   chat.state = "main" 
-                }
+               id          : loginArea
+               anchors.fill: parent
+               onClicked   : 
+               {
+                  if (login.text.length != 0 && password.text.length != 0) {
+                     console.log(login.text)
+                     console.log(password.text)
+
+                     sendLogin(user.text, passwd.text)
+                  }
+               }
             }
+            //-----------------------------
          }
          Rectangle 
          {
-            width : 50
-            height: 20
-            radius : 3
+            width   : 50
+            height  : 20
+            radius  : 3
+            visible : disp
 
             Text
             {
@@ -166,22 +176,4 @@ Rectangle
          }
       }
    }
-   Connections
-   {
-      target    : loader.source != "" ? loader.item : null
-   }
-
-   states : 
-   [
-      State
-      {
-         name : "main"
-
-         PropertyChanges
-         {
-            target : loader
-            source : "test.qml" 
-         }
-      }
-   ]
 }
