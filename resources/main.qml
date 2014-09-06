@@ -41,7 +41,7 @@ Rectangle
         id      : wallpaper
         height  : parent.height
         width   : parent.width
-        fillMode: Image.PreserveAspectFit
+        fillMode: Image.PreserveAspectCrop
         source  : "wallpaper.jpg"
         smooth  : true
     }
@@ -113,6 +113,7 @@ Rectangle
                     focusSearch    = true
                     textTypeSearch = false
                 }
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
             }
         }
     }
