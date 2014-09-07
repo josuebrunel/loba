@@ -145,8 +145,8 @@ Rectangle
                onClicked   : 
                {
                   if (login.text.length != 0 && password.text.length != 0) {
-                     console.log(login.text)
-                     console.log(password.text)
+                     // console.log(login.text)
+                     // console.log(password.text)
 
                      sendLogin(user.text, passwd.text)
                      quitLogin()
