@@ -14,7 +14,6 @@ Rectangle
     height: 600
     width : 300
 
-
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
     property string nameP               : ""
@@ -30,6 +29,7 @@ Rectangle
     property string blue                : "#2672EC"
     property string green               : "#267234"
     property string red                 : "#660000"
+    property string iblue               : "#007aff"
     
 
     property int    cacheBuff           : 65536
@@ -62,7 +62,7 @@ Rectangle
 
         height      : 40
         width       : parent.width
-        radius      : 2
+        radius      : 1
         color       : "white"
         border.color: "white"
         border.width: 1
@@ -92,7 +92,7 @@ Rectangle
             }
 
             focus         : focusSearch
-            font.family   : "Helvetica"
+            font.family   : "Helvetica Neue"
             font.pointSize: 11
             color         : "#0F0F0F"
             text          : textInputSearch
@@ -152,7 +152,7 @@ Rectangle
                 }
 
                 text          : name 
-                font.family   : "Helvetica"
+                font.family   : "Helvetica Neue"
                 font.pointSize: 11
                 color         : "white"
                 smooth        : true
@@ -182,7 +182,7 @@ Rectangle
                  {
                      target   : delegateItem
                      property : "color"
-                     to       : green
+                     to       : green 
                      duration : 500
                  }
                  NumberAnimation
