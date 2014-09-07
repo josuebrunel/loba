@@ -68,15 +68,15 @@ void MessageModelSPS::addMessage(const Message& message)
 
 void MessageModelSPS::slotAddMessage(QString message)
 {
-    char *str1       = (char *)"PRIVMSG #ubuntu :";
-    const char *str2 = message.toStdString().c_str();
-    char *str3       = (char *)" \r\n";
-    char *str4       = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
-    strcpy(str4, str1);
-    strcat(str4, str2);
-    strcat(str4, str3); 
+       char *str1       = (char *)"PRIVMSG #ubuntu :";
+       const char *str2 = message.toStdString().c_str();
+       char *str3       = (char *)" \r\n";
+       char *str4       = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
+       strcpy(str4, str1);
+       strcat(str4, str2);
+       strcat(str4, str3); 
 
-    socket->write(str4);
+       socket->write(str4);
 
     if (!message.isEmpty()) {
        message = message + getCurrentTime().toString(" ~ hh:mm"); 
@@ -93,8 +93,8 @@ QTime MessageModelSPS::getCurrentTime() const
 void MessageModelSPS::connectToServer() 
 {
     socket->connectToHost(QString("irc.freenode.net"), 6667);
-    // USER, NICK and JOIN commands
-    socket->write("NICK godbod \r\n");
+
+    socket->write("NICK Timoty \r\n");
     socket->write("USER guest tolmoon tolsun :Ronnie Reagan\r\n");
     socket->write("JOIN #ubuntu\r\n");
 }
