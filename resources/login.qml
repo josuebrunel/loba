@@ -9,9 +9,9 @@ import QtQuick 1.1
 
 Rectangle
 {
-   id    : chat
-   height: 600
-   width : 300
+   id        : chat
+   height    : 600
+   width     : 300
 
    property bool userFocus  : false 
    property bool loginFocus : false
@@ -19,11 +19,7 @@ Rectangle
    property bool ndisp      : false
 
    signal sendLogin(string login, string password)
-
-   function close()
-   {
-      Qt.quit()
-   }
+   signal quitLogin()
 
    Image
    {
@@ -141,8 +137,7 @@ Rectangle
                anchors.verticalCenter  :parent.verticalCenter
                text   : "Login";
             }
-            
-            //-----------------------------
+
             MouseArea 
             {
                id          : loginArea
@@ -154,10 +149,10 @@ Rectangle
                      console.log(password.text)
 
                      sendLogin(user.text, passwd.text)
+                     quitLogin()
                   }
                }
             }
-            //-----------------------------
          }
          Rectangle 
          {
