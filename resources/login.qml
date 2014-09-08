@@ -165,10 +165,19 @@ Rectangle
             {
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
-               text   : "Guest";
+               text   : "Help ?";
             }
-            //onClicked: console.log("guest") 
+            //onClicked: console.log("help ?") 
          }
       }
+   }
+
+   Text
+   {
+      anchors.bottom          : parent.bottom
+      anchors.horizontalCenter:parent.horizontalCenter
+      anchors.bottomMargin    : 10
+      text                    : "Copyright (C) 2014  godbod"
+      color                   : "lightgrey"
    }
 }
