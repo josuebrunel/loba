@@ -1,38 +1,61 @@
+//  Copyright (c) 2014 godbod
+//
+//////////////////////////////////////////
+///
+/// Author : G
+/// File   : QmlManager.cpp
+/// Date   : 2014 Aug 25
+/// Brief  : QmlManager implementation file
+///
+//////////////////////////////////////////
+
 #include "QmlManager.h"
 
+///-------------------------------------------
 QmlManager::QmlManager()
+///-------------------------------------------
 {
     this->height  = 550;
     this->width   = 300;
     this->qmlPath = "";
 }
 
+///-------------------------------------------
 void QmlManager::slotStartChat()
+///-------------------------------------------
 {
     DataBase *dbLoad = new DataBase();
-    MessageModelSPS *modelsps;
-    modelsps = dbLoad->LoadDataBaseSPS(modelsps);
-    this->showQMLInterface(modelsps);
+    MessageModel *model;
+    model = dbLoad->LoadDataBase(model);
+    this->showQMLInterface(model);
 }
 
+///-------------------------------------------
 void QmlManager::startLogin()
+///-------------------------------------------
 {
     viewLogin = configureLogin();
     viewLogin->show();
 }
 
+///-------------------------------------------
 void QmlManager::slotStopLogin()
+///-------------------------------------------
 {
     viewLogin->close();
 }
 
-void QmlManager::showQMLInterface(MessageModelSPS *modelsps)
+///-------------------------------------------
+void QmlManager::showQMLInterface(MessageModel *model)
+///-------------------------------------------
 {
-    QDeclarativeView *view = configureQMLInterface(modelsps);
+    QDeclarativeView *view = configureQMLInterface(model);
     view->show();
 }
 
+///-------------------------------------------
 QDeclarativeView* QmlManager::configureLogin()
+///-------------------------------------------
 {
     QDeclarativeView *view = new QDeclarativeView();
     view->setSource(QUrl::fromLocalFile("../resources/login.qml"));
@@ -48,11 +71,13 @@ QDeclarativeView* QmlManager::configureLogin()
     return view;
 }
 
-QDeclarativeView* QmlManager::configureQMLInterface(MessageModelSPS *mdsps)
+///-------------------------------------------
+QDeclarativeView* QmlManager::configureQMLInterface(MessageModel *md)
+///-------------------------------------------
 {
     QDeclarativeView    *view = new QDeclarativeView();
     QDeclarativeContext *ctxt = view->rootContext();
-    ctxt->setContextProperty("myModelsps", mdsps);
+    ctxt->setContextProperty("myModelsps", md);
     view->setSource(QUrl::fromLocalFile("../resources/main.qml"));
     QObject *item;
     item = view->rootObject();
@@ -60,11 +85,13 @@ QDeclarativeView* QmlManager::configureQMLInterface(MessageModelSPS *mdsps)
     view->setMinimumSize(this->width, this->height);
     view->setMaximumSize(this->width + 200, this->height - 200);
 
-    QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  mdsps,  SLOT(slotAddMessage(QString)));
+    QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  md,  SLOT(slotAddMessage(QString)));
 
     return view;
 }
 
+///-------------------------------------------
 QmlManager::~QmlManager()
+///-------------------------------------------
 {
 }
