@@ -1,9 +1,13 @@
-/**
- * author : godbod
- * file   : Message.h
- * date   : 2014-08-25
- * brief  : the message header file
- */
+//  Copyright (c) 2014 godbod
+//
+//////////////////////////////////////////
+///
+/// Author : G
+/// File   : Message.h
+/// Date   : 2014 Aug 25
+/// Brief  : Message class file
+///
+//////////////////////////////////////////
 
 #ifndef MESSAGE_H
 #define MESSAGE_H
@@ -14,11 +18,16 @@
 class Message
 {
 public:
+
+    /// constructor
     Message(const QString &name);
+
+    /// destruction
     ~Message();
 
     QString name() const;
 
+    /// private properties 
 private:
     QString m_name;
 };
