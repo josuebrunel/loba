@@ -19,18 +19,6 @@
 
 using namespace std;
 
-MessageModel *MessageModel::m_pInstance = NULL;
-
-///--------------------------------------------
-MessageModel *MessageModel::getInstance()
-///--------------------------------------------
-{
-   if (!m_pInstance) {
-      m_pInstance = new MessageModel;
-   }
-   return m_pInstance;
-}
-
 ///----------------------------------------------------------------------------
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 ///----------------------------------------------------------------------------
