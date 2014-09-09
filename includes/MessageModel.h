@@ -57,8 +57,6 @@ protected:
 private:
     QList<Message> m_Messages;
     QTcpSocket *socket;
-
-    static MessageModel *m_pInstance;
 };
 
 #endif // MESSAGEMODELSPS_H
