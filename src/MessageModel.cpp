@@ -26,8 +26,6 @@ MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
     socket = new QTcpSocket(this);
     connectToServer();
     connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
-    //connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(connectToServer()));
-    //connect(ui->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectFromServer()));
 }
 
 ///----------------------------------------------------------------------------
