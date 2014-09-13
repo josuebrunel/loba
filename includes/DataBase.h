@@ -19,7 +19,6 @@
 class DataBase
 {
 public:
-
     /// constructor
     DataBase();
 

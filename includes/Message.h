@@ -18,7 +18,6 @@
 class Message
 {
 public:
-
     /// constructor
     Message(const QString &name);
 
@@ -27,7 +26,7 @@ public:
 
     QString name() const;
 
-    /// private properties 
+/// private properties 
 private:
     QString m_name;
 };
