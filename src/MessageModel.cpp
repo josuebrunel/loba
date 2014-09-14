@@ -24,9 +24,10 @@ MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 ///----------------------------------------------------------------------------
 {
     m_utils = new Utils();
-    socket = new QTcpSocket(this);
-    connectToServer();
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
+    m_network = new Network();
+    m_socket = m_network->getTcpSocket();
+    m_network->connectToServer("Timoty", "ubuntu", "irc.freenode.net");
+    connect(m_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
 ///----------------------------------------------------------------------------
@@ -82,15 +83,15 @@ void MessageModel::addMessage(const Message& message)
 void MessageModel::slotAddMessage(QString message)
 ///----------------------------------------------------------------------------
 {
-       char *str1       = (char *)"PRIVMSG #ubuntu :";
-       const char *str2 = message.toStdString().c_str();
-       char *str3       = (char *)" \r\n";
-       char *str4       = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
-       strcpy(str4, str1);
-       strcat(str4, str2);
-       strcat(str4, str3); 
+    char *str1 = (char *)"PRIVMSG #ubuntu :";
+    const char *str2 = message.toStdString().c_str();
+    char *str3 = (char *)" \r\n";
+    char *str4 = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
+    strcpy(str4, str1);
+    strcat(str4, str2);
+    strcat(str4, str3); 
 
-       socket->write(str4);
+    m_socket->write(str4);
 
     if (!message.isEmpty()) {
        message = message + m_utils->getCurrentTime().toString(" ~ hh:mm"); 
@@ -100,43 +101,23 @@ void MessageModel::slotAddMessage(QString message)
 }
 
 ///----------------------------------------------------------------------------
-void MessageModel::connectToServer() 
-///----------------------------------------------------------------------------
-{
-    socket->connectToHost(QString("irc.freenode.net"), 6667);
-
-    socket->write("NICK Timoty \r\n");
-    socket->write("USER guest tolmoon tolsun :Ronnie Reagan\r\n");
-    socket->write("JOIN #ubuntu\r\n");
-}
- 
-///----------------------------------------------------------------------------
 void MessageModel::readData() 
 ///----------------------------------------------------------------------------
 {
-    QString readLine = socket->readLine();
+    QString readLine = m_socket->readLine();
 
     if (readLine.contains("PRIVMSG")) {
        readLine = readLine + m_utils->getCurrentTime().toString(" ~ hh:mm");
        Message m(readLine);
        this->addMessage(m);
-       // std::cout << readLine.toStdString() << std::endl;
+       /// std::cout << readLine.toStdString() << std::endl;
     } else if (readLine.contains("PING")) {
-       socket->write("TIME weber.freenode.net\r\n");
+       m_socket->write("TIME weber.freenode.net\r\n");
     }
     
-    //std::cout << readLine.toStdString() << std::endl;
+    /// std::cout << readLine.toStdString() << std::endl;
 
-    if(socket->canReadLine()) {
+    if(m_socket->canReadLine()) {
        readData();
     }
-}
- 
-///----------------------------------------------------------------------------
-void MessageModel::disconnectFromServer() 
-///----------------------------------------------------------------------------
-{
-    socket->write("QUIT Good bye \r\n");
-    socket->flush();
-    socket->disconnect();
 }

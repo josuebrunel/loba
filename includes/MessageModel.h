@@ -17,6 +17,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <QObject>
 #include "Utils.h"
+#include "Network.h"
 
 /// enumeration structure
 enum MessageRoles
@@ -31,7 +32,6 @@ class MessageModel : public QAbstractListModel
 /// private slots
 private slots:
     void readData();
-    void disconnectFromServer();
 
 /// public slots
 public slots:
@@ -39,7 +39,6 @@ public slots:
 
 /// public Methods
 public:
-    void connectToServer();
     MessageModel(QObject *parent = 0);
     static MessageModel *getInstance();
 
@@ -55,8 +54,9 @@ protected:
 /// private properties
 private:
     QList<Message> m_Messages;
-    QTcpSocket *socket;
+    QTcpSocket *m_socket;
     Utils *m_utils;
+    Network *m_network;
 };
 
 #endif // MESSAGEMODELSPS_H
