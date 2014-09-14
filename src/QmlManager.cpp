@@ -10,6 +10,9 @@
 //////////////////////////////////////////
 
 #include "QmlManager.h"
+#include <iostream>
+
+using namespace std;
 
 ///-------------------------------------------
 QmlManager::QmlManager()
@@ -25,7 +28,7 @@ void QmlManager::slotStartChat()
 ///-------------------------------------------
 {
     DataBase *dbLoad = new DataBase();
-    MessageModel *model;
+    ///MessageModel *model;
     model = dbLoad->LoadDataBase(model);
     this->showQMLInterface(model);
 }
@@ -43,6 +46,20 @@ void QmlManager::slotStopLogin()
 ///-------------------------------------------
 {
     viewLogin->close();
+}
+
+///-------------------------------------------
+void QmlManager::slotSendLogin(QString user, QString channel, QString host)
+///-------------------------------------------
+{
+   /// cout <<"in QmlManager::slotSendLogin()"<<endl;
+
+   /// cout<<"user   :"<<user.toStdString()<<endl;
+   /// cout<<"channel:"<<channel.toStdString()<<endl;
+   /// cout<<"host   :"<<host.toStdString()<<endl;
+
+   model = new MessageModel(user, channel, host);   
+   ///model = new MessageModel("Timoty", "ubuntu", "irc.freenode.net");   
 }
 
 ///-------------------------------------------
@@ -67,6 +84,7 @@ QDeclarativeView* QmlManager::configureLogin()
     
     QObject::connect((QObject *)item, SIGNAL(quitLogin()),  this, SLOT(slotStartChat()));
     QObject::connect((QObject *)item, SIGNAL(quitLogin()),  this, SLOT(slotStopLogin()));
+    QObject::connect((QObject *)item, SIGNAL(sendLogin(QString, QString, QString)),  this, SLOT(slotSendLogin(QString, QString, QString)));
 
     return view;
 }

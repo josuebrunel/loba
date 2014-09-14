@@ -49,7 +49,7 @@ void Network::disconnectFromServer()
 }
 
 ///----------------------------------------------------------------------------
-QTcpSocket* Network::getTcpSocket()
+QTcpSocket *Network::getTcpSocket()
 ///----------------------------------------------------------------------------
 {
    return m_socket;

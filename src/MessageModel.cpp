@@ -19,16 +19,43 @@
 
 using namespace std;
 
+QString MessageModel::m_user = "";
+QString MessageModel::m_channel = "";
+QString MessageModel::m_host = "";
+
 ///----------------------------------------------------------------------------
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 ///----------------------------------------------------------------------------
 {
+    ///cout <<"in MessageModel::MessageModel()"<<endl;
+
     m_utils = new Utils();
     m_network = new Network();
     m_socket = m_network->getTcpSocket();
-    m_network->connectToServer("Timoty", "ubuntu", "irc.freenode.net");
+
+    /// cout<<"user   :"<<MessageModel::m_user.toStdString()<<endl;
+    /// cout<<"channel:"<<MessageModel::m_channel.toStdString()<<endl;
+    /// cout<<"host   :"<<MessageModel::m_host.toStdString()<<endl;
+
+    m_network->connectToServer(m_user, m_channel, m_host);
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
+
+///----------------------------------------------------------------------------
+MessageModel::MessageModel(QString user, QString channel, QString host)
+///----------------------------------------------------------------------------
+{
+    /// cout <<"in MessageModel::MessageModel(QString, QString, QString)"<<endl;
+
+    MessageModel::m_user = user;
+    MessageModel::m_channel = channel;
+    MessageModel::m_host = host;
+
+    /// cout<<"user   :"<<MessageModel::m_user.toStdString()<<endl;
+    /// cout<<"channel:"<<MessageModel::m_channel.toStdString()<<endl;
+    /// cout<<"host   :"<<MessageModel::m_host.toStdString()<<endl;
+}
+
 
 ///----------------------------------------------------------------------------
 QHash<int, QByteArray> MessageModel::roleNames() const 
@@ -83,7 +110,10 @@ void MessageModel::addMessage(const Message& message)
 void MessageModel::slotAddMessage(QString message)
 ///----------------------------------------------------------------------------
 {
-    char *str1 = (char *)"PRIVMSG #ubuntu :";
+    QString canal = "PRIVMSG #" + m_channel + " :";
+
+    ///char *str1 = (char *)"PRIVMSG #ubuntu :";
+    char *str1 = (char *)canal.toStdString().c_str();
     const char *str2 = message.toStdString().c_str();
     char *str3 = (char *)" \r\n";
     char *str4 = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));

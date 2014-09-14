@@ -36,6 +36,7 @@ public:
 public slots:
     void slotStartChat();
     void slotStopLogin();
+    void slotSendLogin(QString, QString, QString);
 
 /// private properties
 private:
@@ -43,6 +44,7 @@ private:
     int width;
     QString qmlPath;
     QDeclarativeView *viewLogin;
+    MessageModel *model;
 };
 
 #endif // QMLMANAGER_H
