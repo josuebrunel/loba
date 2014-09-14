@@ -40,12 +40,18 @@ public slots:
 /// public Methods
 public:
     MessageModel(QObject *parent = 0);
+    MessageModel(QString, QString, QString);
     static MessageModel *getInstance();
 
     void loadDataBase(void);
     void addMessage(const Message&);
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+    static QString m_user;
+    static QString m_channel;
+    static QString m_host;
+
 
 /// inherited properties
 protected:
@@ -54,9 +60,9 @@ protected:
 /// private properties
 private:
     QList<Message> m_Messages;
-    QTcpSocket *m_socket;
     Utils *m_utils;
     Network *m_network;
+    QTcpSocket *m_socket;
 };
 
 #endif // MESSAGEMODELSPS_H
