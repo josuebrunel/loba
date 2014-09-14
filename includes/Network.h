@@ -13,17 +13,28 @@
 #define NETWORK_H
 
 #include <QtNetwork/QTcpSocket>
+#include <QObject>
 
-class Network
+class Network : public QObject
 {
+   Q_OBJECT
+
 /// public methods
 public:
-   void connectToServer();
+   Network();
+   ~Network();
+
+   void connectToServer(QString, QString, QString);
    void disconnectFromServer();
+
+   QTcpSocket* getTcpSocket();
 
 /// private properties
 private:
-   QTcpSocket *socket; 
+   QTcpSocket *m_socket; 
+   QString m_user;
+   QString m_channel;
+   QString m_host;
 };
 
 #endif // NETWORK_H
