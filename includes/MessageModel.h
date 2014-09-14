@@ -14,9 +14,15 @@
 
 #include <QAbstractListModel>
 #include "Message.h"
-#include <QTime>
 #include <QtNetwork/QTcpSocket>
 #include <QObject>
+#include "Utils.h"
+
+/// enumeration structure
+enum MessageRoles
+{
+   NameRole = Qt::UserRole + 1
+};
 
 class MessageModel : public QAbstractListModel
 {
@@ -33,11 +39,6 @@ public slots:
 
 /// public Methods
 public:
-    enum MessageRoles
-    {
-        NameRole = Qt::UserRole + 1
-    };
-
     void connectToServer();
     MessageModel(QObject *parent = 0);
     static MessageModel *getInstance();
@@ -47,8 +48,6 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
-    QTime getCurrentTime() const;
-
 /// inherited properties
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -57,6 +56,7 @@ protected:
 private:
     QList<Message> m_Messages;
     QTcpSocket *socket;
+    Utils *m_utils;
 };
 
 #endif // MESSAGEMODELSPS_H

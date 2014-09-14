@@ -21,9 +21,10 @@ public:
     /// constructor
     Message(const QString &name);
 
-    /// destruction
+    /// destructor
     ~Message();
 
+    /// properties methods
     QString name() const;
 
 /// private properties 

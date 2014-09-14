@@ -23,6 +23,7 @@ using namespace std;
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 ///----------------------------------------------------------------------------
 {
+    m_utils = new Utils();
     socket = new QTcpSocket(this);
     connectToServer();
     connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -34,20 +35,24 @@ QHash<int, QByteArray> MessageModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
+
     return roles;
 }
 
 ///----------------------------------------------------------------------------
-QVariant MessageModel::data(const QModelIndex & index, int role) const
+QVariant MessageModel::data(const QModelIndex &index, int role) const
 ///----------------------------------------------------------------------------
 {
-    if (index.row() < 0 || index.row() > m_Messages.count())
-        return QVariant();
-
     const Message &message = m_Messages[index.row()];
 
-    if (role == NameRole)
+    if (index.row() < 0 || index.row() > m_Messages.count()) {
+        return QVariant();
+    }
+
+    if (role == NameRole) {
         return message.name();
+    }
+
     return QVariant();
 }
 
@@ -88,19 +93,12 @@ void MessageModel::slotAddMessage(QString message)
        socket->write(str4);
 
     if (!message.isEmpty()) {
-       message = message + getCurrentTime().toString(" ~ hh:mm"); 
+       message = message + m_utils->getCurrentTime().toString(" ~ hh:mm"); 
        Message m(message);
        this->addMessage(m);
     }
 }
 
-///----------------------------------------------------------------------------
-QTime MessageModel::getCurrentTime() const
-///----------------------------------------------------------------------------
-{
-   return QTime::currentTime();
-}
- 
 ///----------------------------------------------------------------------------
 void MessageModel::connectToServer() 
 ///----------------------------------------------------------------------------
@@ -119,7 +117,7 @@ void MessageModel::readData()
     QString readLine = socket->readLine();
 
     if (readLine.contains("PRIVMSG")) {
-       readLine = readLine + getCurrentTime().toString(" ~ hh:mm");
+       readLine = readLine + m_utils->getCurrentTime().toString(" ~ hh:mm");
        Message m(readLine);
        this->addMessage(m);
        // std::cout << readLine.toStdString() << std::endl;
@@ -129,7 +127,9 @@ void MessageModel::readData()
     
     //std::cout << readLine.toStdString() << std::endl;
 
-    if(socket->canReadLine()) readData();
+    if(socket->canReadLine()) {
+       readData();
+    }
 }
  
 ///----------------------------------------------------------------------------
