@@ -15,10 +15,12 @@ Rectangle
 
    property bool userFocus  : false 
    property bool loginFocus : false
+   property bool chanFocus  : false
    property bool disp       : true
    property bool ndisp      : false
+   property string login    : ""
 
-   signal sendLogin(string login, string password)
+   signal sendLogin(string login, string chan, string password)
    signal quitLogin()
 
    Image
@@ -65,6 +67,7 @@ Rectangle
                {
                   userFocus  = true 
                   loginFocus = false
+                  chanFocus  = false
                }
             }
             TextInput 
@@ -73,6 +76,47 @@ Rectangle
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
                focus : userFocus
+            }
+         }
+      }
+      Column
+      {
+         spacing: 4
+
+         Text
+         {
+            text          : "Channel" 
+            font.family   : "Helvetica"
+            font.pointSize: 12
+            color         : "white"
+            anchors.horizontalCenter:channel.horizontalCenter
+         }
+
+         Rectangle
+         {
+            id           : channel
+            border.width : 1
+            border.color : "white"
+            width        : 160
+            height       : 20
+            radius       : 2
+
+            MouseArea
+            {
+               anchors.fill: parent
+               onClicked:
+               {
+                  chanFocus  = true
+                  userFocus  = false 
+                  loginFocus = false
+               }
+            }
+            TextInput 
+            {
+               id : chan
+               anchors.horizontalCenter:parent.horizontalCenter
+               anchors.verticalCenter  :parent.verticalCenter
+               focus : chanFocus
             }
          }
       }
@@ -85,7 +129,8 @@ Rectangle
 
          Text 
          { 
-            text          : "Password" 
+            ///text       : "Password" 
+            text          : "Host" 
             font.family   : "Helvetica"
             font.pointSize: 12
             color         : "white"
@@ -108,6 +153,7 @@ Rectangle
                {
                   userFocus  = false 
                   loginFocus = true
+                  chanFocus  = false
                }
             }
             TextInput 
@@ -115,7 +161,7 @@ Rectangle
                id : password
                anchors.horizontalCenter:parent.horizontalCenter
                anchors.verticalCenter  :parent.verticalCenter
-               echoMode: TextInput.Password 
+               ///echoMode: TextInput.Password 
                focus   : loginFocus
             }
          }
@@ -144,12 +190,13 @@ Rectangle
                anchors.fill: parent
                onClicked   : 
                {
-                  if (login.text.length != 0 && password.text.length != 0) {
-                     // console.log(login.text)
-                     // console.log(password.text)
+                  if (login.text.length != 0 && password.text.length != 0 && chan.text.length != 0) {
+                     /// console.log(login.text)
+                     /// console.log(chan.text)
+                     /// console.log(password.text)
 
-                     sendLogin(user.text, passwd.text)
-                     quitLogin()
+                     sendLogin(login.text, chan.text, password.text);
+                     quitLogin();
                   }
                }
             }
