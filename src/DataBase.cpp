@@ -17,13 +17,22 @@ DataBase::DataBase()
 {
 }
 
+///------------------
+DataBase::~DataBase()
+///------------------
+{
+}
+
 ///--------------------------------------------------------
 MessageModel* DataBase::LoadDataBase(MessageModel *model)
 ///--------------------------------------------------------
 {
+    /// defining the welcome message
+    Message greeting("///  Copyright (c) 2014 godbod ///");
+
     /// get the model
     model = new MessageModel();
-    model->addMessage(Message("Welcome on loba"));
+    model->addMessage(greeting);
 
     return model;
 }
