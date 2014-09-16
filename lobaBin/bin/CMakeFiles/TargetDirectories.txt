@@ -1,2 +1,0 @@
-/home/godbod/Documents/loba/bin/CMakeFiles/loba.dir
-/home/godbod/Documents/loba/bin/CMakeFiles/loba_automoc.dir

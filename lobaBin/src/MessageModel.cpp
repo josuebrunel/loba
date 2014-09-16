@@ -137,6 +137,7 @@ void MessageModel::readData()
     QString readLine = m_socket->readLine();
 
     if (readLine.contains("PRIVMSG")) {
+       readLine = m_utils->processMessage(readLine);
        readLine = readLine + m_utils->getCurrentTime().toString(" ~ hh:mm");
        Message m(readLine);
        this->addMessage(m);
@@ -146,8 +147,9 @@ void MessageModel::readData()
     }
     
     /// std::cout << readLine.toStdString() << std::endl;
-
     if(m_socket->canReadLine()) {
        readData();
     }
 }
+
+

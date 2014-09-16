@@ -27,6 +27,8 @@ public:
 
     /// getCurrent time utilities
     QTime getCurrentTime() const; 
+    /// QString extractor
+    QString processMessage(QString);
 };
 
 #endif // UTILS_H

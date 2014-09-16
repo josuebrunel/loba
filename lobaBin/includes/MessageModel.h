@@ -48,6 +48,7 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
+
     static QString m_user;
     static QString m_channel;
     static QString m_host;
