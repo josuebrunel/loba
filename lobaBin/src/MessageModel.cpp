@@ -24,6 +24,15 @@ QString MessageModel::m_channel = "";
 QString MessageModel::m_host = "";
 
 ///----------------------------------------------------------------------------
+MessageModel::~MessageModel()
+///----------------------------------------------------------------------------
+{
+    delete m_utils;
+    delete m_network;
+    delete m_socket;
+}
+
+///----------------------------------------------------------------------------
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 ///----------------------------------------------------------------------------
 {
@@ -110,7 +119,7 @@ void MessageModel::addMessage(const Message& message)
 void MessageModel::slotAddMessage(QString message)
 ///----------------------------------------------------------------------------
 {
-    QString canal = "PRIVMSG #" + m_channel + " :";
+    QString canal = "PRIVMSG #" + m_channel + " : ";
 
     ///char *str1 = (char *)"PRIVMSG #ubuntu :";
     char *str1 = (char *)canal.toStdString().c_str();
