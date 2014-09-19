@@ -41,7 +41,7 @@ public slots:
 public:
     MessageModel(QObject *parent = 0);
     MessageModel(QString, QString, QString);
-    static MessageModel *getInstance();
+    ~MessageModel();
 
     void loadDataBase(void);
     void addMessage(const Message&);

@@ -289,4 +289,8 @@ Rectangle
         model   : myModelsps
         delegate: listDelegateSPS
     }
+    ScrollBar
+    {
+       flickable : listViewSPS;
+    }
 }

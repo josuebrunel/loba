@@ -41,7 +41,6 @@ QString Utils::processMessage(QString message)
     bool flag = false;
 
     /// cout << message.toStdString() << endl;
-
     QString processedMessage = "";
 
     for (int i = 0; i < message.size(); i++) {
