@@ -45,7 +45,7 @@ Rectangle
          Text
          {
             text          : "Username" 
-            font.family   : "Helvetica"
+            font.family   : "Ubuntu Mono"
             font.pointSize: 12
             color         : "white"
             anchors.horizontalCenter:user.horizontalCenter
@@ -86,7 +86,7 @@ Rectangle
          Text
          {
             text          : "Channel" 
-            font.family   : "Helvetica"
+            font.family   : "Ubuntu Mono"
             font.pointSize: 12
             color         : "white"
             anchors.horizontalCenter:channel.horizontalCenter
@@ -131,7 +131,7 @@ Rectangle
          { 
             ///text       : "Password" 
             text          : "Host" 
-            font.family   : "Helvetica"
+            font.family   : "Ubuntu Mono"
             font.pointSize: 12
             color         : "white"
             anchors.horizontalCenter:passwd.horizontalCenter

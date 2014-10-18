@@ -125,12 +125,13 @@ void MessageModel::slotAddMessage(QString message)
     char *str1 = (char *)canal.toStdString().c_str();
     const char *str2 = message.toStdString().c_str();
     char *str3 = (char *)" \r\n";
-    char *str4 = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
+    char *str4 = (char *)malloc(strlen(str1) + strlen(str2) + strlen(str3));
     strcpy(str4, str1);
     strcat(str4, str2);
-    strcat(str4, str3); 
+    strcat(str4, str3);
 
     m_socket->write(str4);
+    ///m_socket->write(message.toStdString().c_str());
 
     if (!message.isEmpty()) {
        message = message + m_utils->getCurrentTime().toString(" ~ hh:mm"); 

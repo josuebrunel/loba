@@ -92,7 +92,7 @@ Rectangle
             }
 
             focus         : focusSearch
-            font.family   : "Helvetica Neue"
+            font.family   : "Ubuntu Mono"
             font.pointSize: 11
             color         : "#0F0F0F"
             text          : textInputSearch
@@ -152,7 +152,7 @@ Rectangle
                 }
 
                 text          : name 
-                font.family   : "Helvetica Neue"
+                font.family   : "Ubuntu Mono"
                 font.pointSize: 11
                 color         : "white"
                 smooth        : true
