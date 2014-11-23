@@ -3,7 +3,7 @@
 for line in $(cat file.txt)
 do
    echo $line
-   git rm $line
-   git commit -m "deleted $line"
+   git add $line
+   git commit -m "added $line"
    sleep 1
 done

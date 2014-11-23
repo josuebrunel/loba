@@ -12,7 +12,7 @@ Rectangle
     id    : chatScreen
 
     height: 630
-    width : 300
+    width : 500
 
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
