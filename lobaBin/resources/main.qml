@@ -11,7 +11,7 @@ Rectangle
 {
     id    : chatScreen
 
-    height: 600
+    height: 630
     width : 300
 
     property bool   varVisibleSPSTitle  : true
@@ -20,12 +20,7 @@ Rectangle
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
-    property int    index               : 1
 
-
-    property alias  count               : listViewSPS.count
-
-    
     property string blue                : "#2672EC"
     property string green               : "#267234"
     property string red                 : "#660000"
@@ -53,14 +48,14 @@ Rectangle
         anchors
         {
             bottom      : parent.bottom
-            bottomMargin: 10
+            bottomMargin: 8
             left        : parent.left
             leftMargin  : 20
             right       : parent.right
             rightMargin : 20
         }
 
-        height      : 40
+        height      : 35
         width       : parent.width
         radius      : 1
         color       : "white"
@@ -93,7 +88,7 @@ Rectangle
 
             focus         : focusSearch
             font.family   : "Ubuntu Mono"
-            font.pointSize: 11
+            font.pointSize: 10
             color         : "#0F0F0F"
             text          : textInputSearch
             smooth        : true
@@ -126,15 +121,15 @@ Rectangle
         {
             id:delegateItem
 
-            width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            //height      : nom.height * 1.5 + 20
+            //width     : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
+            width       : listViewSPS.width 
             height      : nom.height + 14 
             clip        : true
             smooth      : true
             color       : green 
-            border.color: "black"
-            border.width: 0
-            radius      : 5
+            border.color: "transparent"
+            border.width: 1
+            radius      : 10
 
             Text
             {
@@ -153,7 +148,7 @@ Rectangle
 
                 text          : name 
                 font.family   : "Ubuntu Mono"
-                font.pointSize: 11
+                font.pointSize: 10
                 color         : "white"
                 smooth        : true
                 width         : parent.width
@@ -175,7 +170,7 @@ Rectangle
                      target     : delegateItem;
                      property   : "height";
                      to         : nom.height + 14 
-                     duration   : 500;
+                     duration   : 300;
                      easing.type: Easing.InOutBack
                  }
                  ColorAnimation
@@ -183,7 +178,7 @@ Rectangle
                      target   : delegateItem
                      property : "color"
                      to       : green 
-                     duration : 500
+                     duration : 300
                  }
                  NumberAnimation
                  {
@@ -191,7 +186,7 @@ Rectangle
                      property   : "scale";
                      from       : 0
                      to         : 1
-                     duration   : 500
+                     duration   : 300
                      easing.type: Easing.InOutBack
                  }
             }
@@ -211,7 +206,7 @@ Rectangle
                         target     : delegateItem;
                         property   : "height";
                         to         : 0
-                        duration   : 700;
+                        duration   : 300;
                         easing.type: Easing.InOutQuart
                     }
                     NumberAnimation
@@ -219,14 +214,14 @@ Rectangle
                         target     : delegateItem;
                         property   : "scale";
                         to         : 0
-                        duration   : 700;
+                        duration   : 300;
                         easing.type: Easing.InOutQuart
                     }
                     NumberAnimation
                     {
                         property    : "width";
-                        duration    : 700
-                         easing.type: Easing.InOutQuart
+                        duration    : 300
+                        easing.type : Easing.InOutQuart
                     }
                 }
             }
@@ -235,7 +230,7 @@ Rectangle
                 NumberAnimation
                 {
                     property   : "height";
-                    duration   : 500;
+                    duration   : 300;
                     easing.type: Easing.InOutQuad
                 }
             }
@@ -258,7 +253,7 @@ Rectangle
         opacity    : 1
         cacheBuffer: cacheBuff
         visible    : varVisibleSPS
-        spacing    : 5 
+        spacing    : 3 
         focus      : true
 
         Behavior on width
@@ -266,7 +261,7 @@ Rectangle
             NumberAnimation
             {
                 property   : "width"
-                duration   : 500 
+                duration   : 300 
                 easing.type: Easing.InOutQuart
             }
         }
@@ -289,8 +284,10 @@ Rectangle
         model   : myModelsps
         delegate: listDelegateSPS
     }
+    /*
     ScrollBar
     {
        flickable : listViewSPS;
     }
+    */
 }
