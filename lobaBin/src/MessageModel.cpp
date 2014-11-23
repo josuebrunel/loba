@@ -121,20 +121,12 @@ void MessageModel::slotAddMessage(QString message)
 {
     QString canal = "PRIVMSG #" + m_channel + " : ";
 
-    ///char *str1 = (char *)"PRIVMSG #ubuntu :";
-    char *str1 = (char *)canal.toStdString().c_str();
-    const char *str2 = message.toStdString().c_str();
-    char *str3 = (char *)" \r\n";
-    char *str4 = (char *)malloc(strlen(str1) + strlen(str2) + strlen(str3));
-    strcpy(str4, str1);
-    strcat(str4, str2);
-    strcat(str4, str3);
+    QString str = canal + message + " \r\n";
 
-    m_socket->write(str4);
-    ///m_socket->write(message.toStdString().c_str());
+    m_socket->write(str.toStdString().c_str());
 
     if (!message.isEmpty()) {
-       message = message + m_utils->getCurrentTime().toString(" ~ hh:mm"); 
+       message = "Me : " + message + m_utils->getCurrentTime().toString(" - hh:mm"); 
        Message m(message);
        this->addMessage(m);
     }
@@ -148,7 +140,7 @@ void MessageModel::readData()
 
     if (readLine.contains("PRIVMSG")) {
        readLine = m_utils->processMessage(readLine);
-       readLine = readLine + m_utils->getCurrentTime().toString(" ~ hh:mm");
+       readLine = readLine + m_utils->getCurrentTime().toString(" - hh:mm");
        Message m(readLine);
        this->addMessage(m);
        /// std::cout << readLine.toStdString() << std::endl;
