@@ -19,9 +19,9 @@
 
 using namespace std;
 
-QString MessageModel::m_user = "";
+QString MessageModel::m_user    = "";
 QString MessageModel::m_channel = "";
-QString MessageModel::m_host = "";
+QString MessageModel::m_host    = "";
 
 ///----------------------------------------------------------------------------
 MessageModel::~MessageModel()
@@ -38,9 +38,9 @@ MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 {
     ///cout <<"in MessageModel::MessageModel()"<<endl;
 
-    m_utils = new Utils();
+    m_utils   = new Utils();
     m_network = new Network();
-    m_socket = m_network->getTcpSocket();
+    m_socket  = m_network->getTcpSocket();
 
     /// cout<<"user   :"<<MessageModel::m_user.toStdString()<<endl;
     /// cout<<"channel:"<<MessageModel::m_channel.toStdString()<<endl;
