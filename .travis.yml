@@ -13,4 +13,4 @@ on_failure: always
 os:
 - linux
 before_install:
-- if [ $TRAVIS_OS_NAME == linux ]; then cmake && make; fi
+- if [ $TRAVIS_OS_NAME == linux ]; then cd bin && cmake .. && make; fi
