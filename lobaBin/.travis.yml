@@ -1,0 +1,15 @@
+language: cpp
+compiler:
+   - gcc
+branches:
+   only:
+      - master
+notifications:
+   email:
+      - gkounkou@gmail.com
+      - josuebrunel@gmail.com
+   on_succes : change
+   on_failure: always
+os:
+   - linux
+cmake .. && make
