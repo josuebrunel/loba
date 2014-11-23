@@ -12,4 +12,5 @@ notifications:
    on_failure: always
 os:
    - linux
-cmake .. && make
+before_install:
+   - if [ $TRAVIS_OS_NAME == linux ]; then cmake .. && make; fi
