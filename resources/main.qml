@@ -155,6 +155,8 @@ Rectangle
                 wrapMode      : Text.WordWrap
                 clip          : true
                 textFormat    : Text.RichText
+
+		//onLinkActivated: Qt.openUrl(link)
             }
 
             ListView.onAdd: ParallelAnimation

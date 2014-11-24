@@ -29,6 +29,8 @@ public:
     QTime getCurrentTime() const; 
     /// QString extractor
     QString processMessage(QString);
+    /// QString formatLink
+    QString formatLink(QString);
 };
 
 #endif // UTILS_H
