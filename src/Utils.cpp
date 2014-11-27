@@ -31,8 +31,8 @@ QTime Utils::getCurrentTime() const
 
 QString Utils::formatLink(QString message)
 {
-   bool flag1 = false;
-   bool flag2 = false;
+   bool flag1   = false;
+   bool flag2   = false;
 
    for (int i = 0; i < message.size(); i++) 
    {
@@ -49,7 +49,7 @@ QString Utils::formatLink(QString message)
       if (message.at(i) == ' ' && flag2 == false)
       {
          //cout << "end of link" << endl;
-         message.append("\"> not functional link </a>");
+         message.append("\"> link </a>");
 	 flag2 = true;
       }
    }
