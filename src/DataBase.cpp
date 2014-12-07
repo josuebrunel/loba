@@ -11,21 +11,15 @@
 
 #include "DataBase.h"
 
-///------------------
 DataBase::DataBase()
-///------------------
 {
 }
 
-///------------------
 DataBase::~DataBase()
-///------------------
 {
 }
 
-///--------------------------------------------------------
 MessageModel* DataBase::LoadDataBase(MessageModel *model)
-///--------------------------------------------------------
 {
     /// defining the welcome message
     /// Message greeting("- Copyright (c) 2014 godbod -");
