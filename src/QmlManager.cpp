@@ -14,18 +14,14 @@
 
 using namespace std;
 
-///-------------------------------------------
 QmlManager::QmlManager()
-///-------------------------------------------
 {
     this->height  = 550;
     this->width   = 300;
     this->qmlPath = "";
 }
 
-///-------------------------------------------
 void QmlManager::slotStartChat()
-///-------------------------------------------
 {
     DataBase *dbLoad = new DataBase();
     ///MessageModel *model;
@@ -33,24 +29,18 @@ void QmlManager::slotStartChat()
     this->showQMLInterface(model);
 }
 
-///-------------------------------------------
 void QmlManager::startLogin()
-///-------------------------------------------
 {
     viewLogin = configureLogin();
     viewLogin->show();
 }
 
-///-------------------------------------------
 void QmlManager::slotStopLogin()
-///-------------------------------------------
 {
     viewLogin->close();
 }
 
-///-------------------------------------------
 void QmlManager::slotSendLogin(QString user, QString channel, QString host)
-///-------------------------------------------
 {
    /// cout <<"in QmlManager::slotSendLogin()"<<endl;
 
@@ -62,17 +52,13 @@ void QmlManager::slotSendLogin(QString user, QString channel, QString host)
    ///model = new MessageModel("Timoty", "ubuntu", "irc.freenode.net");   
 }
 
-///-------------------------------------------
 void QmlManager::showQMLInterface(MessageModel *model)
-///-------------------------------------------
 {
     QDeclarativeView *view = configureQMLInterface(model);
     view->show();
 }
 
-///-------------------------------------------
 QDeclarativeView* QmlManager::configureLogin()
-///-------------------------------------------
 {
     QDeclarativeView *view = new QDeclarativeView();
     view->setSource(QUrl::fromLocalFile("../resources/login.qml"));
@@ -89,9 +75,7 @@ QDeclarativeView* QmlManager::configureLogin()
     return view;
 }
 
-///-------------------------------------------
 QDeclarativeView* QmlManager::configureQMLInterface(MessageModel *md)
-///-------------------------------------------
 {
     QDeclarativeView    *view = new QDeclarativeView();
     QDeclarativeContext *ctxt = view->rootContext();
