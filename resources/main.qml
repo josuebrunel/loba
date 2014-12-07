@@ -87,7 +87,7 @@ Rectangle
             }
 
             focus         : focusSearch
-            font.family   : "Ubuntu Mono"
+            font.family   : "GE Inspira"
             font.pointSize: 10
             color         : "#0F0F0F"
             text          : textInputSearch
@@ -147,7 +147,7 @@ Rectangle
                 }
 
                 text          : name 
-                font.family   : "Ubuntu Mono"
+                font.family   : "GE Inspira"
                 font.pointSize: 10
                 color         : "white"
                 smooth        : true
