@@ -23,18 +23,14 @@ QString MessageModel::m_user    = "";
 QString MessageModel::m_channel = "";
 QString MessageModel::m_host    = "";
 
-///----------------------------------------------------------------------------
 MessageModel::~MessageModel()
-///----------------------------------------------------------------------------
 {
     delete m_utils;
     delete m_network;
     delete m_socket;
 }
 
-///----------------------------------------------------------------------------
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
-///----------------------------------------------------------------------------
 {
     ///cout <<"in MessageModel::MessageModel()"<<endl;
 
@@ -50,9 +46,7 @@ MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
-///----------------------------------------------------------------------------
 MessageModel::MessageModel(QString user, QString channel, QString host)
-///----------------------------------------------------------------------------
 {
     /// cout <<"in MessageModel::MessageModel(QString, QString, QString)"<<endl;
 
@@ -66,9 +60,7 @@ MessageModel::MessageModel(QString user, QString channel, QString host)
 }
 
 
-///----------------------------------------------------------------------------
 QHash<int, QByteArray> MessageModel::roleNames() const 
-///----------------------------------------------------------------------------
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
@@ -76,9 +68,7 @@ QHash<int, QByteArray> MessageModel::roleNames() const
     return roles;
 }
 
-///----------------------------------------------------------------------------
 QVariant MessageModel::data(const QModelIndex &index, int role) const
-///----------------------------------------------------------------------------
 {
     const Message &message = m_Messages[index.row()];
 
@@ -93,16 +83,12 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-///----------------------------------------------------------------------------
 int MessageModel::rowCount(const QModelIndex &) const
-///----------------------------------------------------------------------------
 {
     return m_Messages.count();
 }
 
-///----------------------------------------------------------------------------
 void MessageModel::addMessage(const Message& message)
-///----------------------------------------------------------------------------
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_Messages << message;
@@ -132,9 +118,7 @@ void MessageModel::slotAddMessage(QString message)
     }
 }
 
-///----------------------------------------------------------------------------
 void MessageModel::readData() 
-///----------------------------------------------------------------------------
 {
     QString readLine = m_socket->readLine();
 
