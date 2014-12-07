@@ -83,7 +83,7 @@ QString Utils::processMessage(QString message)
 
    if (processedMessage.contains(linkStart, Qt::CaseInsensitive)) {
       //cout << "there's a link here" << endl;
-      processedMessage = this->formatLink(processedMessage);
+      //processedMessage = this->formatLink(processedMessage);
    }
 
    return processedMessage;
