@@ -1,6 +1,8 @@
-../.travis.yml
-../CMakeLists.txt
-../docs/
-../includes/
-../resources/
-../src/
+../includes/Message.h
+../includes/MessageModel.h
+../resources/main.qml
+../scripts/file.txt
+../scripts/merge.sh
+../src/Message.cpp
+../src/MessageModel.cpp
+../src/QmlManager.cpp
