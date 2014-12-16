@@ -17,6 +17,8 @@ Rectangle
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
     property string nameP               : ""
+    property int    idP                 : 0
+    property int    marg                : 20
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
@@ -24,12 +26,15 @@ Rectangle
     property string blue                : "#2672EC"
     property string green               : "#267234"
     property string red                 : "#660000"
-    property string iblue               : "#007aff"
+    property string iblue               : "#39aef9"
+    property string grey                : "#e4e3e9"
+    property string gray                : "#5e5d63"
+    property string blanc               : "#fef8fb"
     
 
     property int    cacheBuff           : 65536
 
-    signal sendMessage(string messageAEnvoyer)
+    signal sendMessage(string messageAEnvoyer, int id)
   
     Image
     {
@@ -40,7 +45,6 @@ Rectangle
         source  : "wallpaper.jpg"
         smooth  : true
     }
-
     Rectangle
     {
         id:searchBar
@@ -58,8 +62,8 @@ Rectangle
         height      : 35
         width       : parent.width
         radius      : 1
-        color       : "white"
-        border.color: "white"
+        color       : blanc 
+        border.color: blanc
         border.width: 1
         smooth      : true
 
@@ -89,14 +93,15 @@ Rectangle
             focus         : focusSearch
             font.family   : "GE Inspira"
             font.pointSize: 10
-            color         : "#0F0F0F"
+            color         : gray 
             text          : textInputSearch
             smooth        : true
 
             onAccepted:
             {
-                sendMessage(textInput.text)
+                sendMessage(textInput.text, 1)
                 textInput.text  = ''
+		idP = 1 
             }
 
             MouseArea
@@ -122,11 +127,12 @@ Rectangle
             id:delegateItem
 
             //width     : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            width       : listViewSPS.width 
+            //width     : listViewSPS.width 
+            width       : listViewSPS.width
             height      : nom.height + 14 
             clip        : true
             smooth      : true
-            color       : green 
+            color       : (id == 2)?grey:iblue
             border.color: "transparent"
             border.width: 1
             radius      : 10
@@ -149,7 +155,7 @@ Rectangle
                 text          : name 
                 font.family   : "GE Inspira"
                 font.pointSize: 10
-                color         : "white"
+                color         : (id == 1)?blanc:gray
                 smooth        : true
                 width         : parent.width
                 wrapMode      : Text.WordWrap
@@ -157,8 +163,8 @@ Rectangle
                 textFormat    : Text.RichText
 
 		//onLinkActivated: Qt.openUrl(link)
-            }
-
+	    }
+		
             ListView.onAdd: ParallelAnimation
             {
                  PropertyAction
@@ -179,7 +185,7 @@ Rectangle
                  {
                      target   : delegateItem
                      property : "color"
-                     to       : green 
+                     to       : (id == 1)?iblue:grey 
                      duration : 300
                  }
                  NumberAnimation
@@ -271,11 +277,12 @@ Rectangle
         anchors
         {
             left        : parent.left
-            leftMargin  : 20
+            //leftMargin  : 20
+            leftMargin  : marg 
             top         : parent.top
             topMargin   : 50 
-            right       : parent.right
-            rightMargin : 20
+            //right       : parent.right
+            //rightMargin : 20
         }
 
         onContentHeightChanged: 
@@ -289,7 +296,7 @@ Rectangle
     /*
     ScrollBar
     {
-       flickable : listViewSPS;
+       nomable : listViewSPS;
     }
     */
 }
