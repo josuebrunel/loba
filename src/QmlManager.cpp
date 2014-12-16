@@ -42,14 +42,7 @@ void QmlManager::slotStopLogin()
 
 void QmlManager::slotSendLogin(QString user, QString channel, QString host)
 {
-   /// cout <<"in QmlManager::slotSendLogin()"<<endl;
-
-   /// cout<<"user   :"<<user.toStdString()<<endl;
-   /// cout<<"channel:"<<channel.toStdString()<<endl;
-   /// cout<<"host   :"<<host.toStdString()<<endl;
-
    model = new MessageModel(user, channel, host);   
-   ///model = new MessageModel("Timoty", "ubuntu", "irc.freenode.net");   
 }
 
 void QmlManager::showQMLInterface(MessageModel *model)
@@ -87,7 +80,7 @@ QDeclarativeView* QmlManager::configureQMLInterface(MessageModel *md)
     view->setMinimumSize(this->width, this->height);
     view->setMaximumSize(this->width + 200, this->height - 200);
 
-    QObject::connect((QObject *)item, SIGNAL(sendMessage(QString)),  md,  SLOT(slotAddMessage(QString)));
+    QObject::connect((QObject *)item, SIGNAL(sendMessage(QString, int)),  md,  SLOT(slotAddMessage(QString, int)));
 
     return view;
 }
