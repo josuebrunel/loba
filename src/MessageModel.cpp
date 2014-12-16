@@ -32,15 +32,9 @@ MessageModel::~MessageModel()
 
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 {
-    ///cout <<"in MessageModel::MessageModel()"<<endl;
-
     m_utils   = new Utils();
     m_network = new Network();
     m_socket  = m_network->getTcpSocket();
-
-    /// cout<<"user   :"<<MessageModel::m_user.toStdString()<<endl;
-    /// cout<<"channel:"<<MessageModel::m_channel.toStdString()<<endl;
-    /// cout<<"host   :"<<MessageModel::m_host.toStdString()<<endl;
 
     m_network->connectToServer(m_user, m_channel, m_host);
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -48,15 +42,9 @@ MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
 
 MessageModel::MessageModel(QString user, QString channel, QString host)
 {
-    /// cout <<"in MessageModel::MessageModel(QString, QString, QString)"<<endl;
-
     MessageModel::m_user = user;
     MessageModel::m_channel = channel;
     MessageModel::m_host = host;
-
-    /// cout<<"user   :"<<MessageModel::m_user.toStdString()<<endl;
-    /// cout<<"channel:"<<MessageModel::m_channel.toStdString()<<endl;
-    /// cout<<"host   :"<<MessageModel::m_host.toStdString()<<endl;
 }
 
 
@@ -64,6 +52,7 @@ QHash<int, QByteArray> MessageModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
+    roles[IdRole] = "id";
 
     return roles;
 }
@@ -79,6 +68,9 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     if (role == NameRole) {
         return message.name();
     }
+    if (role == IdRole) {
+       return message.id();
+    }
 
     return QVariant();
 }
@@ -88,22 +80,14 @@ int MessageModel::rowCount(const QModelIndex &) const
     return m_Messages.count();
 }
 
-void MessageModel::addMessage(const Message& message)
+void MessageModel::addMessage(const Message& message, int id)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_Messages << message;
     endInsertRows();
-
-    /*    
-    for (int i = 0; i < m_Messages.size(); i++) {
-       cout<<"*r*" << (m_Messages[i].name()).toStdString() << endl;
-    }
-    */
 }
 
-///----------------------------------------------------------------------------
-void MessageModel::slotAddMessage(QString message)
-///----------------------------------------------------------------------------
+void MessageModel::slotAddMessage(QString message, int id)
 {
     QString canal = "PRIVMSG #" + m_channel + " : ";
 
@@ -113,8 +97,8 @@ void MessageModel::slotAddMessage(QString message)
 
     if (!message.isEmpty()) {
        message = "Me : " + message + m_utils->getCurrentTime().toString(" - hh:mm"); 
-       Message m(message);
-       this->addMessage(m);
+       Message m(message, id);
+       this->addMessage(m, id);
     }
 }
 
@@ -125,8 +109,8 @@ void MessageModel::readData()
     if (readLine.contains("PRIVMSG")) {
        readLine = m_utils->processMessage(readLine);
        readLine = readLine + m_utils->getCurrentTime().toString(" - hh:mm");
-       Message m(readLine);
-       this->addMessage(m);
+       Message m(readLine, 2);
+       this->addMessage(m, 2);
        /// std::cout << readLine.toStdString() << std::endl;
     } else if (readLine.contains("PING")) {
        m_socket->write("TIME weber.freenode.net\r\n");
@@ -137,5 +121,3 @@ void MessageModel::readData()
        readData();
     }
 }
-
-
