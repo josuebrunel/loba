@@ -22,7 +22,8 @@
 /// enumeration structure
 enum MessageRoles
 {
-   NameRole = Qt::UserRole + 1
+   NameRole = Qt::UserRole + 1,
+   IdRole = Qt::UserRole + 2
 };
 
 class MessageModel : public QAbstractListModel
@@ -35,7 +36,7 @@ private slots:
 
 /// public slots
 public slots:
-    void slotAddMessage(QString);
+    void slotAddMessage(QString, int);
 
 /// public Methods
 public:
@@ -44,7 +45,7 @@ public:
     ~MessageModel();
 
     void loadDataBase(void);
-    void addMessage(const Message&);
+    void addMessage(const Message&, int);
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
@@ -57,6 +58,7 @@ public:
 /// inherited properties
 protected:
     QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleIds() const;
 
 /// private properties
 private:
