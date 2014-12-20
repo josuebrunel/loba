@@ -224,7 +224,7 @@ Rectangle
       anchors.bottom          : parent.bottom
       anchors.horizontalCenter:parent.horizontalCenter
       anchors.bottomMargin    : 10
-      text                    : "Copyright (C) 2014  godbod"
+      text                    : "Copyright © 2014  godbod"
       color                   : "lightgrey"
    }
 }
