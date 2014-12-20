@@ -127,8 +127,8 @@ Rectangle
             id:delegateItem
 
             //width     : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            //width     : listViewSPS.width 
-            width       : listViewSPS.width - photo.width
+            width     : listViewSPS.width 
+            //width       : listViewSPS.width - photo.width
             height      : nom.height + 14 
             clip        : true
             smooth      : true
