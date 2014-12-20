@@ -18,7 +18,6 @@ Rectangle
     property bool   varVisibleSPS       : true
     property string nameP               : ""
     property int    idP                 : 0
-    property int    marg                : 20
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
@@ -30,7 +29,6 @@ Rectangle
     property string grey                : "#e4e3e9"
     property string gray                : "#5e5d63"
     property string blanc               : "#fef8fb"
-    
 
     property int    cacheBuff           : 65536
 
@@ -45,6 +43,7 @@ Rectangle
         source  : "wallpaper.jpg"
         smooth  : true
     }
+
     Rectangle
     {
         id:searchBar
@@ -122,20 +121,43 @@ Rectangle
     {
         id: listDelegateSPS
 
+
         Rectangle
         {
             id:delegateItem
 
             //width     : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
             //width     : listViewSPS.width 
-            width       : listViewSPS.width
+            width       : listViewSPS.width - photo.width
             height      : nom.height + 14 
             clip        : true
             smooth      : true
             color       : (id == 2)?grey:iblue
             border.color: "transparent"
             border.width: 1
-            radius      : 10
+            radius      : 08
+	    
+            anchors
+            {
+               left        : listDelegateSPS.left
+               leftMargin  : 50
+	    }
+
+	    Rectangle
+	    {
+               id    : photo
+               width : 20
+	       height: listViewSPS.height
+	       clip  : true
+               color : (id == 2)?"transparent":iblue
+	       radius: 08 
+
+               anchors
+	       {
+                  left  : parent.left
+                  right : nom.left
+	       }
+	    }
 
             Text
             {
@@ -143,11 +165,12 @@ Rectangle
 
                 anchors
                 {
-                   left          : delegateItem.left
-                   leftMargin    : 10
+                   //left        : delegateItem.left
+                   left          : photo.right
+                   //leftMargin  : 10
+                   right       : delegateItem.right
+                   rightMargin : 5
                    verticalCenter: delegateItem.verticalCenter
-                   right         : delegateItem.right
-                   rightMargin   : 5
                    topMargin     : 0
                    bottomMargin  : 0
                 }
@@ -179,7 +202,7 @@ Rectangle
                      property   : "height";
                      to         : nom.height + 14 
                      duration   : 300;
-                     easing.type: Easing.InOutBack
+                     easing.type: Easing.OutBack
                  }
                  ColorAnimation
                  {
@@ -195,7 +218,7 @@ Rectangle
                      from       : 0
                      to         : 1
                      duration   : 300
-                     easing.type: Easing.InOutBack
+                     easing.type: Easing.OutBack
                  }
             }
 
@@ -215,7 +238,7 @@ Rectangle
                         property   : "height";
                         to         : 0
                         duration   : 300;
-                        easing.type: Easing.InOutQuart
+                        easing.type: Easing.OutBack
                     }
                     NumberAnimation
                     {
@@ -223,13 +246,13 @@ Rectangle
                         property   : "scale";
                         to         : 0
                         duration   : 300;
-                        easing.type: Easing.InOutQuart
+                        easing.type: Easing.OutBack
                     }
                     NumberAnimation
                     {
                         property    : "width";
                         duration    : 300
-                        easing.type : Easing.InOutQuart
+                        easing.type : Easing.OutBack
                     }
                 }
             }
@@ -239,7 +262,7 @@ Rectangle
                 {
                     property   : "height";
                     duration   : 300;
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutBack
                 }
             }
             Behavior on color
@@ -249,7 +272,7 @@ Rectangle
                     duration: 200
                 }
             }
-        }
+	}
     }
 
     ListView
@@ -270,19 +293,18 @@ Rectangle
             {
                 property   : "width"
                 duration   : 300 
-                easing.type: Easing.InOutQuart
+                easing.type: Easing.OutBack
             }
         }
 
         anchors
         {
             left        : parent.left
-            //leftMargin  : 20
-            leftMargin  : marg 
+            leftMargin  : 20
             top         : parent.top
             topMargin   : 50 
-            //right       : parent.right
-            //rightMargin : 20
+            right       : parent.right
+            rightMargin : 20
         }
 
         onContentHeightChanged: 
