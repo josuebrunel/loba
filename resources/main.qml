@@ -146,16 +146,29 @@ Rectangle
 	    Rectangle
 	    {
                id    : photo
-               width : 20
+               width : 45
 	       height: listViewSPS.height
 	       clip  : true
                color : (id == 2)?"transparent":iblue
 	       radius: 08 
 
+               Image
+               {
+                  id      : senderPic
+                  height  : 20
+                  width   : 20
+                  fillMode: Image.PreserveAspectCrop
+                  source  : (id == 2)?"unkown.png":"me.png"
+                  smooth  : true
+               }
+
                anchors
 	       {
-                  left  : parent.left
-                  right : nom.left
+                  left        : parent.left
+                  right       : nom.left
+		  top         : parent.top
+		  leftMargin  : 5 
+		  topMargin   : 5
 	       }
 	    }
 
