@@ -8,6 +8,7 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(loba)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x")
 set(CMAKE_AUTOMOC on)
 set(CMAKE_INCLUDE_CURRENT_DIR on)
 set(EXECUTABLE_OUTPUT_PATH .)
