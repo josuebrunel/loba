@@ -11,21 +11,20 @@
 
 #include "Message.h"
 
-///--------------------------------------------------
-Message::Message(const QString &name) : m_name(name)
-///--------------------------------------------------
+Message::Message(const QString &name, const int id) : m_name(name), m_id(id)
 {
 }
 
-///--------------------------------------------------
 Message::~Message() 
-///--------------------------------------------------
 { 
 }
 
-///--------------------------------------------------
 QString Message::name() const 
-///--------------------------------------------------
 { 
    return m_name; 
+}
+
+int Message::id() const
+{
+   return m_id;
 }

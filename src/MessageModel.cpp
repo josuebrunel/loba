@@ -19,138 +19,105 @@
 
 using namespace std;
 
-MessageModel *MessageModel::m_pInstance = NULL;
+QString MessageModel::m_user    = "";
+QString MessageModel::m_channel = "";
+QString MessageModel::m_host    = "";
 
-///--------------------------------------------
-MessageModel *MessageModel::getInstance()
-///--------------------------------------------
+MessageModel::~MessageModel()
 {
-   if (!m_pInstance) {
-      m_pInstance = new MessageModel;
-   }
-   return m_pInstance;
+    delete m_utils;
+    delete m_network;
+    delete m_socket;
 }
 
-///----------------------------------------------------------------------------
 MessageModel::MessageModel(QObject *parent) : QAbstractListModel(parent)
-///----------------------------------------------------------------------------
 {
-    socket = new QTcpSocket(this);
-    connectToServer();
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readData()));
-    //connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(connectToServer()));
-    //connect(ui->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectFromServer()));
+    m_utils   = new Utils();
+    m_network = new Network();
+    m_socket  = m_network->getTcpSocket();
+
+    m_network->connectToServer(m_user, m_channel, m_host);
+    connect(m_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
-///----------------------------------------------------------------------------
+MessageModel::MessageModel(QString user, QString channel, QString host)
+{
+    MessageModel::m_user = user;
+    MessageModel::m_channel = channel;
+    MessageModel::m_host = host;
+}
+
+
 QHash<int, QByteArray> MessageModel::roleNames() const 
-///----------------------------------------------------------------------------
 {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
+    roles[IdRole] = "id";
+
     return roles;
 }
 
-///----------------------------------------------------------------------------
-QVariant MessageModel::data(const QModelIndex & index, int role) const
-///----------------------------------------------------------------------------
+QVariant MessageModel::data(const QModelIndex &index, int role) const
 {
-    if (index.row() < 0 || index.row() > m_Messages.count())
-        return QVariant();
-
     const Message &message = m_Messages[index.row()];
 
-    if (role == NameRole)
+    if (index.row() < 0 || index.row() > m_Messages.count()) {
+        return QVariant();
+    }
+
+    if (role == NameRole) {
         return message.name();
+    }
+    if (role == IdRole) {
+       return message.id();
+    }
+
     return QVariant();
 }
 
-///----------------------------------------------------------------------------
 int MessageModel::rowCount(const QModelIndex &) const
-///----------------------------------------------------------------------------
 {
     return m_Messages.count();
 }
 
-///----------------------------------------------------------------------------
-void MessageModel::addMessage(const Message& message)
-///----------------------------------------------------------------------------
+void MessageModel::addMessage(const Message& message, int id)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_Messages << message;
     endInsertRows();
-
-    /*    
-    for (int i = 0; i < m_Messages.size(); i++) {
-       cout<<"*r*" << (m_Messages[i].name()).toStdString() << endl;
-    }
-    */
 }
 
-///----------------------------------------------------------------------------
-void MessageModel::slotAddMessage(QString message)
-///----------------------------------------------------------------------------
+void MessageModel::slotAddMessage(QString message, int id)
 {
-       char *str1       = (char *)"PRIVMSG #ubuntu :";
-       const char *str2 = message.toStdString().c_str();
-       char *str3       = (char *)" \r\n";
-       char *str4       = (char *)malloc(1 + strlen(str1) + strlen(str2) + strlen(str3));
-       strcpy(str4, str1);
-       strcat(str4, str2);
-       strcat(str4, str3); 
+    QString canal = "PRIVMSG #" + m_channel + " : ";
 
-       socket->write(str4);
+    QString str = canal + message + " \r\n";
+
+    m_socket->write(str.toStdString().c_str());
 
     if (!message.isEmpty()) {
-       message = message + getCurrentTime().toString(" ~ hh:mm"); 
-       Message m(message);
-       this->addMessage(m);
+       message = "Me : " + message + m_utils->getCurrentTime().toString(" - hh:mm"); 
+       Message m(message, id);
+       this->addMessage(m, id);
     }
 }
 
-///----------------------------------------------------------------------------
-QTime MessageModel::getCurrentTime() const
-///----------------------------------------------------------------------------
-{
-   return QTime::currentTime();
-}
- 
-///----------------------------------------------------------------------------
-void MessageModel::connectToServer() 
-///----------------------------------------------------------------------------
-{
-    socket->connectToHost(QString("irc.freenode.net"), 6667);
-
-    socket->write("NICK Timoty \r\n");
-    socket->write("USER guest tolmoon tolsun :Ronnie Reagan\r\n");
-    socket->write("JOIN #ubuntu\r\n");
-}
- 
-///----------------------------------------------------------------------------
 void MessageModel::readData() 
-///----------------------------------------------------------------------------
 {
-    QString readLine = socket->readLine();
+    QString readLine = m_socket->readLine();
 
     if (readLine.contains("PRIVMSG")) {
-       readLine = readLine + getCurrentTime().toString(" ~ hh:mm");
-       Message m(readLine);
-       this->addMessage(m);
-       // std::cout << readLine.toStdString() << std::endl;
+       readLine = m_utils->processMessage(readLine);
+       readLine = readLine + m_utils->getCurrentTime().toString(" - hh:mm");
+       Message m(readLine, 2);
+       this->addMessage(m, 2);
+       /// std::cout << readLine.toStdString() << std::endl;
     } else if (readLine.contains("PING")) {
-       socket->write("TIME weber.freenode.net\r\n");
+       m_socket->write("TIME weber.freenode.net\r\n");
     }
     
-    //std::cout << readLine.toStdString() << std::endl;
-
-    if(socket->canReadLine()) readData();
-}
- 
-///----------------------------------------------------------------------------
-void MessageModel::disconnectFromServer() 
-///----------------------------------------------------------------------------
-{
-    socket->write("QUIT Good bye \r\n");
-    socket->flush();
-    socket->disconnect();
+    /// std::cout << readLine.toStdString() << std::endl;
+    if(m_socket->canReadLine()) {
+       readData();
+    }
 }

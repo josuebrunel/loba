@@ -1,0 +1,8 @@
+../includes/Message.h
+../includes/MessageModel.h
+../resources/main.qml
+../scripts/file.txt
+../scripts/merge.sh
+../src/Message.cpp
+../src/MessageModel.cpp
+../src/QmlManager.cpp

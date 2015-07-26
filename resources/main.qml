@@ -11,30 +11,28 @@ Rectangle
 {
     id    : chatScreen
 
-    height: 600
-    width : 300
+    height: 630
+    width : 500
 
     property bool   varVisibleSPSTitle  : true
     property bool   varVisibleSPS       : true
     property string nameP               : ""
+    property int    idP                 : 0
     property bool   textTypeSearch      : true
     property bool   focusSearch         : false
     property string textInputSearch     : "tap your message..."
-    property int    index               : 1
 
-
-    property alias  count               : listViewSPS.count
-
-    
     property string blue                : "#2672EC"
     property string green               : "#267234"
     property string red                 : "#660000"
-    property string iblue               : "#007aff"
-    
+    property string iblue               : "#39aef9"
+    property string grey                : "#e4e3e9"
+    property string gray                : "#5e5d63"
+    property string blanc               : "#fef8fb"
 
     property int    cacheBuff           : 65536
 
-    signal sendMessage(string messageAEnvoyer)
+    signal sendMessage(string messageAEnvoyer, int id)
   
     Image
     {
@@ -53,18 +51,18 @@ Rectangle
         anchors
         {
             bottom      : parent.bottom
-            bottomMargin: 10
+            bottomMargin: 8
             left        : parent.left
             leftMargin  : 20
             right       : parent.right
             rightMargin : 20
         }
 
-        height      : 40
+        height      : 35
         width       : parent.width
         radius      : 1
-        color       : "white"
-        border.color: "white"
+        color       : blanc 
+        border.color: blanc
         border.width: 1
         smooth      : true
 
@@ -92,16 +90,17 @@ Rectangle
             }
 
             focus         : focusSearch
-            font.family   : "Helvetica Neue"
-            font.pointSize: 11
-            color         : "#0F0F0F"
+            font.family   : "GE Inspira"
+            font.pointSize: 10
+            color         : gray 
             text          : textInputSearch
             smooth        : true
 
             onAccepted:
             {
-                sendMessage(textInput.text)
+                sendMessage(textInput.text, 1)
                 textInput.text  = ''
+		idP = 1 
             }
 
             MouseArea
@@ -122,19 +121,56 @@ Rectangle
     {
         id: listDelegateSPS
 
+
         Rectangle
         {
             id:delegateItem
 
-            width       : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
-            //height      : nom.height * 1.5 + 20
+            //width     : (name.length*8)>(listViewSPS.width)?listViewSPS.width:(name.length*8)
+            width     : listViewSPS.width 
+            //width       : listViewSPS.width - photo.width
             height      : nom.height + 14 
             clip        : true
             smooth      : true
-            color       : green 
-            border.color: "black"
-            border.width: 0
-            radius      : 5
+            color       : (id == 2)?grey:iblue
+            border.color: "transparent"
+            border.width: 1
+            radius      : 08
+	    
+            anchors
+            {
+               left        : listDelegateSPS.left
+               leftMargin  : 50
+	    }
+
+	    Rectangle
+	    {
+               id    : photo
+               width : 45
+	       height: listViewSPS.height
+	       clip  : true
+               color : (id == 2)?"transparent":iblue
+	       radius: 08 
+
+               Image
+               {
+                  id      : senderPic
+                  height  : 20
+                  width   : 20
+                  fillMode: Image.PreserveAspectCrop
+                  source  : (id == 2)?"unkown.png":"me.png"
+                  smooth  : true
+               }
+
+               anchors
+	       {
+                  left        : parent.left
+                  right       : nom.left
+		  top         : parent.top
+		  leftMargin  : 5 
+		  topMargin   : 5
+	       }
+	    }
 
             Text
             {
@@ -142,26 +178,29 @@ Rectangle
 
                 anchors
                 {
-                   left          : delegateItem.left
-                   leftMargin    : 10
+                   //left        : delegateItem.left
+                   left          : photo.right
+                   //leftMargin  : 10
+                   right       : delegateItem.right
+                   rightMargin : 5
                    verticalCenter: delegateItem.verticalCenter
-                   right         : delegateItem.right
-                   rightMargin   : 5
                    topMargin     : 0
                    bottomMargin  : 0
                 }
 
                 text          : name 
-                font.family   : "Helvetica Neue"
-                font.pointSize: 11
-                color         : "white"
+                font.family   : "GE Inspira"
+                font.pointSize: 10
+                color         : (id == 1)?blanc:gray
                 smooth        : true
                 width         : parent.width
                 wrapMode      : Text.WordWrap
                 clip          : true
                 textFormat    : Text.RichText
-            }
 
+		//onLinkActivated: Qt.openUrl(link)
+	    }
+		
             ListView.onAdd: ParallelAnimation
             {
                  PropertyAction
@@ -175,15 +214,15 @@ Rectangle
                      target     : delegateItem;
                      property   : "height";
                      to         : nom.height + 14 
-                     duration   : 500;
-                     easing.type: Easing.InOutBack
+                     duration   : 300;
+                     easing.type: Easing.OutBack
                  }
                  ColorAnimation
                  {
                      target   : delegateItem
                      property : "color"
-                     to       : green 
-                     duration : 500
+                     to       : (id == 1)?iblue:grey 
+                     duration : 300
                  }
                  NumberAnimation
                  {
@@ -191,8 +230,8 @@ Rectangle
                      property   : "scale";
                      from       : 0
                      to         : 1
-                     duration   : 500
-                     easing.type: Easing.InOutBack
+                     duration   : 300
+                     easing.type: Easing.OutBack
                  }
             }
 
@@ -211,22 +250,22 @@ Rectangle
                         target     : delegateItem;
                         property   : "height";
                         to         : 0
-                        duration   : 700;
-                        easing.type: Easing.InOutQuart
+                        duration   : 300;
+                        easing.type: Easing.OutBack
                     }
                     NumberAnimation
                     {
                         target     : delegateItem;
                         property   : "scale";
                         to         : 0
-                        duration   : 700;
-                        easing.type: Easing.InOutQuart
+                        duration   : 300;
+                        easing.type: Easing.OutBack
                     }
                     NumberAnimation
                     {
                         property    : "width";
-                        duration    : 700
-                         easing.type: Easing.InOutQuart
+                        duration    : 300
+                        easing.type : Easing.OutBack
                     }
                 }
             }
@@ -235,8 +274,8 @@ Rectangle
                 NumberAnimation
                 {
                     property   : "height";
-                    duration   : 500;
-                    easing.type: Easing.InOutQuad
+                    duration   : 300;
+                    easing.type: Easing.OutBack
                 }
             }
             Behavior on color
@@ -246,7 +285,7 @@ Rectangle
                     duration: 200
                 }
             }
-        }
+	}
     }
 
     ListView
@@ -258,7 +297,7 @@ Rectangle
         opacity    : 1
         cacheBuffer: cacheBuff
         visible    : varVisibleSPS
-        spacing    : 5 
+        spacing    : 3 
         focus      : true
 
         Behavior on width
@@ -266,8 +305,8 @@ Rectangle
             NumberAnimation
             {
                 property   : "width"
-                duration   : 500 
-                easing.type: Easing.InOutQuart
+                duration   : 300 
+                easing.type: Easing.OutBack
             }
         }
 
@@ -289,4 +328,10 @@ Rectangle
         model   : myModelsps
         delegate: listDelegateSPS
     }
+    /*
+    ScrollBar
+    {
+       nomable : listViewSPS;
+    }
+    */
 }

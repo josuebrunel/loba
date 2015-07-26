@@ -1,4 +1,4 @@
-//  Copyright (c) 2014 godbod
+//  Copyright © 2014 godbod
 //
 //////////////////////////////////////////
 ///
@@ -18,18 +18,20 @@
 class Message
 {
 public:
-
     /// constructor
-    Message(const QString &name);
+    Message(const QString &name, int id);
 
-    /// destruction
+    /// destructor
     ~Message();
 
+    /// properties methods
     QString name() const;
+    int id() const;
 
-    /// private properties 
+/// private properties 
 private:
     QString m_name;
+    int m_id;
 };
 
 #endif // MESSAGE_H

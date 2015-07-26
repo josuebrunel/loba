@@ -14,9 +14,17 @@
 
 #include <QAbstractListModel>
 #include "Message.h"
-#include <QTime>
 #include <QtNetwork/QTcpSocket>
 #include <QObject>
+#include "Utils.h"
+#include "Network.h"
+
+/// enumeration structure
+enum MessageRoles
+{
+   NameRole = Qt::UserRole + 1,
+   IdRole = Qt::UserRole + 2
+};
 
 class MessageModel : public QAbstractListModel
 {
@@ -25,40 +33,39 @@ class MessageModel : public QAbstractListModel
 /// private slots
 private slots:
     void readData();
-    void disconnectFromServer();
 
 /// public slots
 public slots:
-    void slotAddMessage(QString);
+    void slotAddMessage(QString, int);
 
 /// public Methods
 public:
-    enum MessageRoles
-    {
-        NameRole = Qt::UserRole + 1
-    };
-
-    void connectToServer();
     MessageModel(QObject *parent = 0);
-    static MessageModel *getInstance();
+    MessageModel(QString, QString, QString);
+    ~MessageModel();
 
     void loadDataBase(void);
-    void addMessage(const Message&);
+    void addMessage(const Message&, int);
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
-    QTime getCurrentTime() const;
+
+    static QString m_user;
+    static QString m_channel;
+    static QString m_host;
+
 
 /// inherited properties
 protected:
     QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleIds() const;
 
 /// private properties
 private:
     QList<Message> m_Messages;
-    QTcpSocket *socket;
-
-    static MessageModel *m_pInstance;
+    Utils *m_utils;
+    Network *m_network;
+    QTcpSocket *m_socket;
 };
 
 #endif // MESSAGEMODELSPS_H
